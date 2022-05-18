@@ -1,6 +1,6 @@
 # Social Analytics 
 
-## About
+## About
 Authors: 
 * DefinitelyNotHilbert
 * Casss
