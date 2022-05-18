@@ -1,5 +1,13 @@
 # Social Analytics 
 
+## About
+Authors: 
+* DefinitelyNotHilbert
+* Casss
+* TimDoubleG
+
+
+
 ## Quickstart
 
 First, install all packages
@@ -17,8 +25,6 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Motivation
 
 ## License
 
