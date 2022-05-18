@@ -15,7 +15,7 @@ export async function listBreweries(city) {
     //     return []
     // }
 
-    console.log('breweries', result)
+    // console.log('breweries', result)
     
     return result
 }

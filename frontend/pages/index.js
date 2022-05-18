@@ -1,11 +1,26 @@
 import Web3 from "web3";
 import styles from "../styles/CreatorSight.module.css";
 import React, { useState } from "react";
+import { Provider, chain, createClient, defaultChains } from 'wagmi';
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
+import { InjectedConnector } from 'wagmi/connectors/injected';
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { useConnect } from 'wagmi';
+import { Profile } from "./components/provider";
+import { Holdings } from "./components/holdings";
+import { Wallet } from "./components/wallet";
+import { AssetsSupplied } from "./components/assetssupplied";
+import { AssetsBorrowed } from "./components/assetsborrowed";
+
+
 {
   /* <i class="fa-solid fa-magnifying-glass"></i> */
 }
 import {
+  Alert,
   AppShell,
+  Card,
   Navbar,
   Header,
   Footer,
@@ -25,14 +40,20 @@ import {
   Table,
   Image,
 } from "@mantine/core";
-import Link from "next/link";
+import { AlertCircle } from 'tabler-icons-react';
+
 
 const Home = () => {
 
+  // which Theme to use
   const theme = useMantineTheme();
-  const [opened, setOpened] = useState(false);
-  // const [error, setError] = useState("");
 
+  // // Setup wagmi.sh connector
+  // const { connect, connectors, error, isConnecting, pendingConnector } =
+  //   useConnect()
+
+  const [opened, setOpened] = useState(false);
+  const [error, setError] = useState('');
   const [address, setAddress] = useState(null);
   // const [holders, setHolders] = useState([]);
   // const [token, setToken] = useState(null);
@@ -40,14 +61,11 @@ const Home = () => {
   const [networth, setNetworth] = useState([]);
   const [holdings, setHoldings] = useState([]);
   const [breweries, setBreweries] = useState([]);
-
-
   // const [averages, setAverages] = useState(null);
   // const [topNFTs, setTopNFTs] = useState(null);
-
   const [state, setState] = useState();
 
-
+  // Fetches all information performed by a search
   const getContractData = async () => {
     setState("loading");
     const getBalances = await fetch(`/api/balances?address=${address}`);
@@ -62,14 +80,14 @@ const Home = () => {
     const _holdings = await getHoldings.json();
     const _breweries = await getBreweries.json();
 
-
     setBalances(_balances.data);
     setNetworth(_networth.data);
     setHoldings(_holdings.data);
     setBreweries(_breweries.data);
-
-
     setState("fresh");
+    if(networth == []) {setError('error')};
+    if(networth != []) {setError('ok') };
+
   };
  
   return (
@@ -149,12 +167,12 @@ const Home = () => {
 
           {/* Search Bar */}
           <h2>Search a Wallet Address</h2>
-          {/* <p>0x37A03D4AF1D7046d1126987b20117A0FdCBF6535</p> */}
+          {/* <p>0x37A03D4AF1D7046d1126987b20117A0FdCBF6535</p> */}  
           <Space h="md" />
           <Grid>
             <Grid.Col span={10}>
               <TextInput
-                placeholder="Enter Collection Address"
+                placeholder="Enter Wallet Address"
                 wrapperProps={{ padding: "100px" }}
                 size="lg"
                 value={address}
@@ -171,10 +189,14 @@ const Home = () => {
               >
                 Search
               </Button>
-
-              {/* </Group> */}
             </Grid.Col>
           </Grid>
+
+            <h2>Or connect your wallet</h2>
+            {/* Wagmi Wallet connector */}
+            <Provider client={Wallet()}>
+              <Profile/>
+            </Provider>
 
           {/* Loading Bar */}
           <Space h="md" id="stats" />
@@ -190,6 +212,18 @@ const Home = () => {
             </div>
           )}
 
+          {/* If Search gives no result */}
+          <Space h='md' id='stats' />
+          {error === 'error' && (
+            <>
+              <Alert icon={<AlertCircle size={16} />} title="Bummer!" color="red">
+                We can't find anything under that address!
+                Try the following address: 0xEB5b3590d4F59Ddef7ab03C444656DF2D9806E82
+              </Alert>            
+            </>
+          )}
+
+          <Divider my='sm'/>
           {/* New Card Boxes appearing */}
           {balances && balances.length > 0 && (
             <>
@@ -201,7 +235,7 @@ const Home = () => {
                 >
                   {/* <Image src="bullet-swirl.png" height={20} alt="" /> */}
                   <Space w="xs" />
-                  <h2>Holdings</h2>
+                  <h2>Ether Balance</h2>
                 </div>
                 <Space h="md" />
                 <p>{balances} ether</p>
@@ -210,38 +244,15 @@ const Home = () => {
               <Space h="lg" />
 
               {/* Holdings Overview */}
-              <div className="mt-6">
-                <div
-                  style={{ display: "flex", alignItems: "center" }}
-                  className={styles.main}
-                >
-                  {/* <Image src="bullet-swirl.png" height={20} alt="" /> */}
-                  <Space w="xs" />
-                  <h2>Networth</h2>
-                </div>
-                <Space h="md" />
-                <p>USD {networth.data.total_usd_value}</p>
-                <p>{JSON.stringify(holdings)}</p>
-
-                {/* <Card variant="overview" data={balances} /> */}
-              </div>
-              <Space h="lg" />
+              <Holdings holdings={holdings}/>
             
-              {/* Token Collateral */}
-              <div className="mt-6">
-                <div
-                  style={{ display: "flex", alignItems: "center" }}
-                  className={styles.main}
-                >
-                  {/* <Image src="bullet-swirl.png" height={20} alt="" /> */}
-                  <Space w="xs" />
-                  <h2>Token Collateral Supplied</h2>
-                </div>
-                <Space h="md" />
-                <p>empty for now</p>
-                {/* <Card variant="overview" data={balances} /> */}
-              </div>
-              <Space h="lg" />
+              {/* Assets Supplied */}
+              <AssetsSupplied/>
+
+              {/* Assets Supplied */}
+              <AssetsBorrowed />
+
+
 
               {/* Sanity Check */}
               <div className="mt-6">

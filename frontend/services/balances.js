@@ -18,7 +18,7 @@ export async function getBalancesFromContractAddress(address) {
     const result = (await response.json())
 
     if (result.message != 'OK') {
-        console.log('data of balance.js not ok', result.error)
+        console.log('data of balance.js not ok', result.result)
         return []
     }
 

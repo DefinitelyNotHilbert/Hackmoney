@@ -5,7 +5,7 @@ export async function getTotalNetworth(address) {
     // console.log('\n response.json', result)
 
     if (result.error_code != 0) {
-        console.log('data of networth.js not ok', result.error)
+        console.log('data of networth.js not ok', result.error_msg)
         return []
     }
 
