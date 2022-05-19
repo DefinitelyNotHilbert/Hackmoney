@@ -118,12 +118,10 @@ const Home = () => {
                   style={{ display: "flex", alignItems: "center" }}
                   className={styles.main}
                 >
+                  <Image src="https://www.creativefabrica.com/wp-content/uploads/2019/05/Wallet-icon-by-nurfajrialdi95-580x387.jpg" height={40} alt="" />
                   <Text weight="bold" size="xl">
-                    Contract
+                    Wallet
                   </Text>
-                  {/* <Space w="xs" />
-
-                  <Image src="bullet-swirl.png" height={20} alt="" /> */}
                 </div>
 
                 <Space h="xs" />
