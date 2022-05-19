@@ -7,7 +7,7 @@ from core import settings
 from core.cache.cache import Cache
 from core.cache.sqlite_cache import SQLiteCache
 from core.common.token import Token
-from core.protocols.compound.user_summary import CompoundPrecise
+from core.protocols.compound.types import CompoundPrecise
 from core.protocols.data_provider import UserDataProvider
 
 
@@ -54,21 +54,14 @@ class CTokenResponse:
 
 
 class CompoundTokenDataProvider(UserDataProvider[CToken]):
-    cache: Cache = SQLiteCache(settings.DB, 'compound_tokens')
-    url = "https://api.compound.finance/api/v2/ctoken"
 
     @staticmethod
     def get(token: str) -> Optional[CToken]:
-        cached = CompoundTokenDataProvider.__class__.cache.get(token)
-        if cached:
-            raw = cached
+        payload = {'addresses': [token]}
+        response = requests.get(f'https://api.compound.finance/api/v2/ctoken/', params=payload)
+        if response.ok:
+            raw = response.text
         else:
-            payload = {'addresses': [token]}
-            response = requests.get(token, params=payload)
-            if response.ok:
-                CompoundTokenDataProvider.__class__.cache.put(token, response.raw)
-                raw = response.raw
-            else:
-                return None  # FIXME
+            return None  # FIXME
         tok_resp = CTokenResponse(raw)
         return tok_resp.cToken[0]

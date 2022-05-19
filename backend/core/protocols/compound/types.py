@@ -1,0 +1,2 @@
+class CompoundPrecise:
+    value: str

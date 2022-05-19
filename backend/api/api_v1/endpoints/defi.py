@@ -8,6 +8,6 @@ router = APIRouter()
 
 
 @router.get("/{protocol}/{address}")
-async def get_protocol_stats(proto: Protocol, addr: str):
-    response = proto(addr)
+async def get_protocol_stats(protocol: Protocol, address: str):
+    response = protocol(address)
     return response

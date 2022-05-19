@@ -8,6 +8,8 @@ Created on Sat May 14 15:47:04 2022
 
 from enum import Enum
 
+from core.protocols.compound.user_summary import CompoundUserDataProvider
+
 
 class DispatchingEnum(Enum):
     """
@@ -46,3 +48,8 @@ class Protocol(str, DispatchingEnum):
 
     aave_v2 = 'aave_v2'
     compound = 'compound'
+
+
+@register(Protocol.compound)
+def get_compound_user_summary(user: str):
+    return CompoundUserDataProvider.get(user)

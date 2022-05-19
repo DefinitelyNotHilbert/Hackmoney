@@ -4,17 +4,10 @@ from typing import List, Optional
 
 import requests
 
-from core import settings
-from core.cache.cache import Cache
-from core.cache.sqlite_cache import SQLiteCache
 from core.common.token import Token
 from core.protocols.compound.ctoken import CompoundTokenDataProvider
+from core.protocols.compound.types import CompoundPrecise
 from core.protocols.data_provider import UserDataProvider
-from core.protocols.protocols import register, Protocol
-
-
-class CompoundPrecise:
-    value: str
 
 
 class CompoundToken:
@@ -55,39 +48,36 @@ class CompoundUserAccount:
 
 
 class CompoundUserDataProvider(UserDataProvider[CompoundUserAccount]):
-    cache: Cache = SQLiteCache(settings.DB, 'compound_user_accounts')
-    url = "https://api.compound.finance/api/v2/ctokens"
 
     @staticmethod
     def get(user: str) -> Optional[CompoundUserAccount]:
-        cached = CompoundUserAccount.__class__.get(user)
-        if cached:
-            raw = cached
+
+        payload = {'addresses': [user]}
+        response = requests.get(f'https://api.compound.finance/api/v2/account/', params=payload)
+        if response.ok:
+            raw = response.text
         else:
-            payload = {'addresses': [user]}
-            response = requests.get(user, params=payload)
-            if response.ok:
-                CompoundUserAccount.__class__.cache.put(user, response.raw)
-                raw = response.raw
-            else:
-                return None  # FIXME
+            return None  # FIXME
+        print(raw)
         acc_resp = AccountResponse(raw)
         account = acc_resp.accounts[0]
+        print(account)
         borrowed: List[Token] = []
         supplied: List[Token] = []
-        for token in account.tokens:
-            c_token = CompoundTokenDataProvider.get(token.address).to_token()
-            if token.borrow_balance_underlying != 0:
+        for token in account['tokens']:
+            c_token = CompoundTokenDataProvider.get(token['address'])
+            c_token = Token(c_token['underlying_address'], c_token['underlying_name'], c_token['underlying_symbol'])
+            if token['borrow_balance_underlying']['value'] != 0:
                 borrowed.append(c_token)
-            if token.supply_balance_underlying != 0:
+            if token['supply_balance_underlying']['value'] != 0:
                 supplied.append(c_token)
-        account = CompoundUserAccount(float(account.health.value),
-                                      float(account.total_collateral_value_in_eth.value),
-                                      float(account.total_borrow_value_in_eth.value),
+        health = None if not account.get('health') else float(account['health']['value'])
+        total_collateral_value_in_eth = None if not account.get('total_collateral_value_in_eth') else float(
+            account['total_collateral_value_in_eth']['value'])
+        total_borrow_value_in_eth = None if not account.get('total_borrow_value_in_eth') else float(
+            account['total_borrow_value_in_eth']['value'])
+        account = CompoundUserAccount(health,
+                                      total_collateral_value_in_eth,
+                                      total_borrow_value_in_eth,
                                       borrowed, supplied)
         return account
-
-
-@register(Protocol.compound)
-def get_compound_user_summary(user: str):
-    return UserDataProvider.get(user)
