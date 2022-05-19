@@ -1,18 +1,12 @@
-import Web3 from "web3";
 import styles from "../styles/CreatorSight.module.css";
 import React, { useState } from "react";
 import { Provider, chain, createClient, defaultChains } from 'wagmi';
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
-import { InjectedConnector } from 'wagmi/connectors/injected';
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { useConnect } from 'wagmi';
 import { Profile } from "./components/provider";
 import { Holdings } from "./components/holdings";
 import { Wallet } from "./components/wallet";
 import { AssetsSupplied } from "./components/assetssupplied";
 import { AssetsBorrowed } from "./components/assetsborrowed";
-
+import { NFTList } from "./components/nftlist";
 
 {
   /* <i class="fa-solid fa-magnifying-glass"></i> */
@@ -60,6 +54,8 @@ const Home = () => {
   const [balances, setBalances] = useState([]);
   const [networth, setNetworth] = useState([]);
   const [holdings, setHoldings] = useState([]);
+  const [nftlist, setNftlist] = useState([]);
+
   const [breweries, setBreweries] = useState([]);
   // const [averages, setAverages] = useState(null);
   // const [topNFTs, setTopNFTs] = useState(null);
@@ -71,6 +67,7 @@ const Home = () => {
     const getBalances = await fetch(`/api/balances?address=${address}`);
     const getNetworth = await fetch(`/api/networth?address=${address}`);
     const getHoldings = await fetch(`/api/holdings?address=${address}`);
+    // const getNftlist = await fetch(`/api/nftlist?address=${address}`);
 
     const city = 'san_diego';
     const getBreweries = await fetch(`/api/beer?city=${city}`);
@@ -79,11 +76,14 @@ const Home = () => {
     const _networth = await getNetworth.json();
     const _holdings = await getHoldings.json();
     const _breweries = await getBreweries.json();
+    // const _nftlist = await getNftlist.json();
 
     setBalances(_balances.data);
     setNetworth(_networth.data);
     setHoldings(_holdings.data);
     setBreweries(_breweries.data);
+    // setNftlist(_nftlist.data);
+
     setState("fresh");
     if(networth == []) {setError('error')};
     if(networth != []) {setError('ok') };
@@ -165,7 +165,7 @@ const Home = () => {
 
           {/* Search Bar */}
           <h2>Search a Wallet Address</h2>
-          {/* <p>0x37A03D4AF1D7046d1126987b20117A0FdCBF6535</p> */}  
+          <p>0x5B5ECfc8122bA166b21d6Ea26268Ef97e09B2E9F</p>  
           <Space h="md" />
           <Grid>
             <Grid.Col span={10}>
@@ -249,6 +249,9 @@ const Home = () => {
 
               {/* Assets Supplied */}
               <AssetsBorrowed />
+
+              {/* NFT List */}
+              <NFTList/>
 
 
 
