@@ -1,12 +1,13 @@
 import styles from "../styles/CreatorSight.module.css";
-import React, { useState } from "react";
-import { Provider, chain, createClient, defaultChains } from 'wagmi';
-import { Profile } from "./components/provider";
+import React, { useState, useEffect } from "react";
+import { Profile } from "./components/profile";
 import { Holdings } from "./components/holdings";
 import { Wallet } from "./components/wallet";
 import { AssetsSupplied } from "./components/assetssupplied";
 import { AssetsBorrowed } from "./components/assetsborrowed";
 import { NFTList } from "./components/nftlist";
+import { NftHoldings } from "./components/nftholdings";
+
 
 {
   /* <i class="fa-solid fa-magnifying-glass"></i> */
@@ -35,12 +36,15 @@ import {
   Image,
 } from "@mantine/core";
 import { AlertCircle } from 'tabler-icons-react';
+import { useAccount } from "wagmi";
 
 
 const Home = () => {
 
   // which Theme to use
   const theme = useMantineTheme();
+
+  const { data: account } = useAccount()
 
   // // Setup wagmi.sh connector
   // const { connect, connectors, error, isConnecting, pendingConnector } =
@@ -55,34 +59,33 @@ const Home = () => {
   const [networth, setNetworth] = useState([]);
   const [holdings, setHoldings] = useState([]);
   const [nftlist, setNftlist] = useState([]);
+  const [nftholdings, setNftholdings] = useState([]);
 
-  const [breweries, setBreweries] = useState([]);
+
   // const [averages, setAverages] = useState(null);
   // const [topNFTs, setTopNFTs] = useState(null);
   const [state, setState] = useState();
 
   // Fetches all information performed by a search
-  const getContractData = async () => {
+  const getContractData = async (address) => {
     setState("loading");
     const getBalances = await fetch(`/api/balances?address=${address}`);
     const getNetworth = await fetch(`/api/networth?address=${address}`);
     const getHoldings = await fetch(`/api/holdings?address=${address}`);
-    // const getNftlist = await fetch(`/api/nftlist?address=${address}`);
-
-    const city = 'san_diego';
-    const getBreweries = await fetch(`/api/beer?city=${city}`);
+    const getNftlist = await fetch(`/api/nftlist?address=${address}`);
+    const getNftholdings = await fetch(`/api/nftholdings?address=${address}`);
 
     const _balances = await getBalances.json();
     const _networth = await getNetworth.json();
     const _holdings = await getHoldings.json();
-    const _breweries = await getBreweries.json();
-    // const _nftlist = await getNftlist.json();
+    const _nftlist = await getNftlist.json();
+    const _nftholdings = await getNftholdings.json();
 
     setBalances(_balances.data);
     setNetworth(_networth.data);
     setHoldings(_holdings.data);
-    setBreweries(_breweries.data);
-    // setNftlist(_nftlist.data);
+    setNftlist(_nftlist.data);
+    setNftholdings(_nftholdings.data);
 
     setState("fresh");
     if(networth == []) {setError('error')};
@@ -90,6 +93,9 @@ const Home = () => {
 
   };
  
+  // If account address exists over wagmi the search is performed automatically
+  useEffect(()=> {if (account?.address) getContractData(account?.address)}, [account?.address])
+
   return (
 
     <Container size={1400} px={0}>
@@ -162,6 +168,7 @@ const Home = () => {
 
       >
         <div className={styles.main}>
+          {account?.address}
 
           {/* Search Bar */}
           <h2>Search a Wallet Address</h2>
@@ -192,9 +199,9 @@ const Home = () => {
 
             <h2>Or connect your wallet</h2>
             {/* Wagmi Wallet connector */}
-            <Provider client={Wallet()}>
-              <Profile/>
-            </Provider>
+            {/* <Provider client={Wallet()}> */}
+            <Profile/>
+            {/* </Provider> */}
 
           {/* Loading Bar */}
           <Space h="md" id="stats" />
@@ -251,27 +258,9 @@ const Home = () => {
               <AssetsBorrowed />
 
               {/* NFT List */}
-              <NFTList/>
+              <NFTList nftlist={nftlist}/>
 
-
-
-              {/* Sanity Check */}
-              <div className="mt-6">
-                <div
-                  style={{ display: "flex", alignItems: "center" }}
-                  className={styles.main}
-                >
-                  {/* <Image src="bullet-swirl.png" height={20} alt="" /> */}
-                  <Space w="xs" />
-                  <h2>Sanity Check: Breweries</h2>
-                </div>
-                <Space h="md" />
-                <p>This should show data from breweries</p>
-                {/* <p>{breweries.map(brewery => <div>{brewery.name}</div>)}</p> */}
-                <p>{JSON.stringify(breweries)}</p>
-                {/* <Card variant="overview" data={balances} /> */}
-              </div>
-              <Space h="lg" />
+              <NftHoldings nftholdings={nftholdings}/>
 
             </>
           )}

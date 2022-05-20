@@ -22,12 +22,16 @@ export function Profile() {
                 <Grid.Col md={5} lg={3}>
                     <img src={ensAvatar} alt="ENS Avatar" />
                 </Grid.Col>
-                <Grid.Col md={5} lg={3}>
-                    {ensName ? `${ensName} (${account.address})` : account.address}
-                </Grid.Col>
-                <Grid.Col md={5} lg={3}>
-                    Connected to {account.connector.name}
-                </Grid.Col>
+                {account && 
+                    <>
+                        <Grid.Col md={5} lg={3}>
+                            {ensName ? `${ensName} (${account.address})` : account.address}
+                        </Grid.Col>
+                        <Grid.Col md={5} lg={3}>
+                            Connected to {account.connector?.name}
+                        </Grid.Col>
+                    </>
+                }
                 <Button onClick={disconnect}>Disconnect</Button>
             </Grid>
 
