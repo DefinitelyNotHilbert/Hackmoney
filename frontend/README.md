@@ -1,6 +1,8 @@
-# Social Analytics 
+# Frontend
 
 ## About
+This is the frontend that uses data from the backend to display it in a Next.js App. 
+
 Authors: 
 * DefinitelyNotHilbert
 * Casss
