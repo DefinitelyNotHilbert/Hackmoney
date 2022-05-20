@@ -50,12 +50,30 @@ query Proposals {
 }
 """
 
+SPACE_QUERY = """
+query {
+  space(id: "<DAO>") {
+    id
+    name
+    about
+    network
+    symbol
+    members
+    strategies {
+      name
+      params
+    }
+  }
+}
+"""
+
 from core.protocols.data_provider import UserDataProvider
 
 
 @dataclass(init=True)
 class SnapshotDAOUserAccount:
     daos: List[str]
+    dao_token_map: Dict[str, object]
     total_proposals: Dict[str, int]
     votes: Dict[str, int]
 
@@ -77,15 +95,27 @@ class SnapshotUserSummary(UserDataProvider[SnapshotDAOUserAccount]):
             votes.setdefault(dao, 0)
             votes[dao] += 1
 
+        dao_token_map = {}
         total_proposals_per_dao = {}
         for dao in daos:
             query = PROPOSALS_QUERY.replace('<DAO>', dao)
-            print(query)
             response = requests.post(f'https://hub.snapshot.org/graphql', json={'query': query})
             if not response.ok:
                 continue
             proposals = json.loads(response.text)['data']['proposals']
             total_proposals_per_dao[dao] = len(proposals)
-
-        account = SnapshotDAOUserAccount(list(daos), total_proposals_per_dao, votes)
+            query = SPACE_QUERY.replace('<DAO>', dao)
+            response = requests.post(f'https://hub.snapshot.org/graphql', json={'query': query})
+            if not response.ok:
+                continue
+            strategies = json.loads(response.text)['data']['space']['strategies']
+            for strategy in strategies:
+                if strategy['name'] in ["erc20-votes", "erc20-balance-of", "comp-like-votes", "uniswap", "balancer"]:
+                    dao_token_map.setdefault(dao, [])
+                    dao_token_map[dao].append({'symbol': strategy['params'].get('symbol'),
+                                               'name': strategy['params'].get('name'),
+                                               'address': strategy['params']['address']})
+                elif strategy['name'] in ["multichain", "delegation"]:
+                    strategies.extend(strategy['params']['strategies'])
+        account = SnapshotDAOUserAccount(list(daos), dao_token_map, total_proposals_per_dao, votes)
         return account

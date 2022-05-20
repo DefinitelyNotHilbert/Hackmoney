@@ -60,6 +60,8 @@ class CompoundUserDataProvider(UserDataProvider[CompoundUserAccount]):
             return None  # FIXME
         print(raw)
         acc_resp = AccountResponse(raw)
+        if len(acc_resp.accounts) == 0:
+            return None
         account = acc_resp.accounts[0]
         print(account)
         borrowed: List[Token] = []

@@ -26,6 +26,8 @@ class AaveDAOUserDataProvider(UserDataProvider[AaveDAOUserAccount]):
         if not response.ok:
             return None  # FIXME
         account = json.loads(response.text)
+        if not account:
+            return None
         balance = float(account['aaveBalance'])
         votes = float(account['votingPower'])
         vote_weight = float(account['votingWeight'])
