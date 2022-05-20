@@ -8,9 +8,9 @@ Created on Sat May 14 15:47:04 2022
 
 from enum import Enum
 
+from core.protocols.aave_v2.dao_user_summary import AaveDAOUserDataProvider
 from core.protocols.compound.dao_user_summary import CompoundDAOUserDataProvider
 from core.protocols.compound.user_summary import CompoundUserDataProvider
-from core.protocols.snapshot.user_summary import SnapshotUserSummary
 
 
 class DispatchingEnum(Enum):
@@ -52,18 +52,14 @@ class Protocol(str, DispatchingEnum):
     compound = 'compound'
 
 
-class DAO(str, DispatchingEnum):
+class DAO(Enum):
     """
     Enum class that enumerates all supported DAOs protocols.
     """
+    aave = 'aave'
     compound = 'compound'
 
 
 @register(Protocol.compound)
 def get_compound_user_summary(user: str):
     return CompoundUserDataProvider.get(user)
-
-
-@register(DAO.compound)
-def get_compound_dao_user_summary(user: str):
-    return CompoundDAOUserDataProvider.get(user)
