@@ -9,7 +9,6 @@ import { NFTList } from "./components/nftlist";
 import { NftHoldings } from "./components/nftholdings";
 import Head from 'next/head'
 
-
 {
   /* <i class="fa-solid fa-magnifying-glass"></i> */
 }
@@ -150,15 +149,6 @@ const Home = () => {
             <div
               style={{ display: "flex", alignItems: "center", height: "100%" }}
             >
-              {/* <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-                <Burger
-                  opened={opened}
-                  onClick={() => setOpened((o) => !o)}
-                  size="sm"
-                  color={theme.colors.gray[6]}
-                  mr="xl"
-                />
-              </MediaQuery> */}
               <div style={{ display: "flex" }} className={styles.main}>
                 <Space w='20px'/>
                 <a href='/'>
