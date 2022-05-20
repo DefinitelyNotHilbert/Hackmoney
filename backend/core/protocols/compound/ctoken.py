@@ -3,9 +3,6 @@ from typing import List, Optional
 
 import requests
 
-from core import settings
-from core.cache.cache import Cache
-from core.cache.sqlite_cache import SQLiteCache
 from core.common.token import Token
 from core.protocols.compound.types import CompoundPrecise
 from core.protocols.data_provider import UserDataProvider

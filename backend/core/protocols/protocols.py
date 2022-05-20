@@ -9,6 +9,7 @@ Created on Sat May 14 15:47:04 2022
 from enum import Enum
 
 from core.protocols.compound.user_summary import CompoundUserDataProvider
+from core.protocols.snapshot.user_summary import SnapshotUserSummary
 
 
 class DispatchingEnum(Enum):
