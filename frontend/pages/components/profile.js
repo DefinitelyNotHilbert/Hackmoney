@@ -1,4 +1,4 @@
-import { Button, Space, Grid } from '@mantine/core'
+import { Button, Space, SimpleGrid, Grid } from '@mantine/core'
 import {
     useAccount,
     useConnect,
@@ -20,9 +20,9 @@ export function Profile() {
         return (
             <Grid gutter='xl'>
                 <Grid.Col md={5} lg={3}>
-                    <img src={ensAvatar} alt="ENS Avatar" />
+                    {ensAvatar && <img src={ensAvatar} alt="ENS Avatar" />}
                 </Grid.Col>
-                {account && 
+                {account &&
                     <>
                         <Grid.Col md={5} lg={3}>
                             {ensName ? `${ensName} (${account.address})` : account.address}
@@ -32,7 +32,17 @@ export function Profile() {
                         </Grid.Col>
                     </>
                 }
-                <Button onClick={disconnect}>Disconnect</Button>
+                <Grid.Col md={5} lg={3}>
+                    <Button
+                        onClick={disconnect}
+                        type="submit"
+                        color="orange"
+                        size="lg"
+                    >
+                        Disconnect
+                    </Button>
+                </Grid.Col>
+
             </Grid>
 
         )

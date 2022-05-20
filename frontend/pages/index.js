@@ -7,6 +7,7 @@ import { AssetsSupplied } from "./components/assetssupplied";
 import { AssetsBorrowed } from "./components/assetsborrowed";
 import { NFTList } from "./components/nftlist";
 import { NftHoldings } from "./components/nftholdings";
+import Head from 'next/head'
 
 
 {
@@ -31,6 +32,7 @@ import {
   Space,
   Divider, 
   Select,
+  SimpleGrid,
   Container,
   Table,
   Image,
@@ -44,17 +46,12 @@ const Home = () => {
   // which Theme to use
   const theme = useMantineTheme();
 
+  // Wagmi account hook
   const { data: account } = useAccount()
-
-  // // Setup wagmi.sh connector
-  // const { connect, connectors, error, isConnecting, pendingConnector } =
-  //   useConnect()
 
   const [opened, setOpened] = useState(false);
   const [error, setError] = useState('');
   const [address, setAddress] = useState(null);
-  // const [holders, setHolders] = useState([]);
-  // const [token, setToken] = useState(null);
   const [balances, setBalances] = useState([]);
   const [networth, setNetworth] = useState([]);
   const [holdings, setHoldings] = useState([]);
@@ -62,12 +59,10 @@ const Home = () => {
   const [nftholdings, setNftholdings] = useState([]);
 
 
-  // const [averages, setAverages] = useState(null);
-  // const [topNFTs, setTopNFTs] = useState(null);
   const [state, setState] = useState();
 
   // Fetches all information performed by a search
-  const getContractData = async (address) => {
+  const getContractData = async () => {
     setState("loading");
     const getBalances = await fetch(`/api/balances?address=${address}`);
     const getNetworth = await fetch(`/api/networth?address=${address}`);
@@ -94,7 +89,8 @@ const Home = () => {
   };
  
   // If account address exists over wagmi the search is performed automatically
-  useEffect(()=> {if (account?.address) getContractData(account?.address)}, [account?.address])
+  useEffect(()=> {if (account?.address) setAddress(account?.address) & getContractData()}, [account?.address])
+
 
   return (
 
@@ -110,6 +106,8 @@ const Home = () => {
         navbarOffsetBreakpoint="sm"
         asideOffsetBreakpoint="sm"
         fixed
+
+        // Navigation Bar
         navbar={
           <Navbar
             p="lg"
@@ -130,11 +128,15 @@ const Home = () => {
                   </Text>
                 </div>
 
-                <Space h="xs" />
+                <Space h="xs" />              
                 <Text>
-                  {`${address && address.substring(0, 9)}...${address &&
-                    address.substring(address.length - 9, address.length)
-                    }`}
+                    {account?.address ?
+                    `${account?.address && account?.address.substring(0, 6)}...${account?.address &&
+                    account?.address.substring(account?.address.length - 6, account?.address.length)}`
+                      :
+                      `${address && address.substring(0, 6)}...${address &&
+                    address.substring(address.length - 6, address.length)}`                      
+                    }
                 </Text>
                 <Space h="xl" />
               </>
@@ -142,33 +144,42 @@ const Home = () => {
           </Navbar>
         }
       
+        // Header Bar
+        header={
+          <Header height={70} p="md" pl="0">
+            <div
+              style={{ display: "flex", alignItems: "center", height: "100%" }}
+            >
+              {/* <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+                <Burger
+                  opened={opened}
+                  onClick={() => setOpened((o) => !o)}
+                  size="sm"
+                  color={theme.colors.gray[6]}
+                  mr="xl"
+                />
+              </MediaQuery> */}
+              <div style={{ display: "flex" }} className={styles.main}>
+                <Space w='20px'/>
+                <a href='/'>
+                  <Image src="CANDID.svg" height={20} alt="" />
+                </a>
+              </div>
+            </div>
+          </Header>
+        }
 
-        // header={
-        //   <Header height={70} p="md" pl="0">
-        //     <div
-        //       style={{ display: "flex", alignItems: "center", height: "100%" }}
-        //     >
-        //       <MediaQuery largerThan="sm" styles={{ display: "none" }}>
-        //         <Burger
-        //           opened={opened}
-        //           onClick={() => setOpened((o) => !o)}
-        //           size="sm"
-        //           color={theme.colors.gray[6]}
-        //           mr="xl"
-        //         />
-        //       </MediaQuery>
-        //       <div style={{ display: "flex" }} className={styles.main}>
-        //         <Image src="CREATORSIGHt.png" height={220} alt="" />
-
-        //       </div>
-        //       {/* <Text>CreatorSight</Text> */}
-        //     </div>
-        //   </Header>
-        // }
+        // Footer
+        footer={
+          <Footer height={60} p="md">
+              <Text style={{ textAlign: "center" }} size='xs'>
+                @2022 °Candid. All right reserved.
+              </Text>
+          </Footer>
+        }
 
       >
         <div className={styles.main}>
-          {account?.address}
 
           {/* Search Bar */}
           <h2>Search a Wallet Address</h2>

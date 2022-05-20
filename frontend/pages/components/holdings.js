@@ -36,9 +36,10 @@ export function Holdings(holdings) {
                         <Space w="xs" />
                         <h2>Holdings</h2>
                     </div>
-                    <Space h="md" />
+                    <Space h="md" w='xs'/>
                     <Text>Total holdings in USD: {holdings.holdings.total_usd_value}</Text>
                     {/* <p>{JSON.stringify(table)}</p> */}
+                    <Space h="md" w='xs' />
                     <Table highlightOnHover>
                         <thead>
                             <tr>
