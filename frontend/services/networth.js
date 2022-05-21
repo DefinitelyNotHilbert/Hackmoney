@@ -1,8 +1,10 @@
+import { debank_api_key } from './config'
+
 export async function getTotalNetworth(address) {
-    const response = await fetch(`https://api.debank.com/v1/user/total_balance?addr=${address}` {
-        method: 'GET', 
+    const response = await fetch(`https://pro-openapi.debank.com/v1/user/total_balance?id=${address}` {
+        method: 'GET',
         headers: {
-            "X-Auth-Token": 'a20b3b73e0106574cec913550b2e921b6f9eedd3'
+            "AccessKey": debank_api_key
         }
     });
     const result = (await response.json());
@@ -14,10 +16,10 @@ export async function getTotalNetworth(address) {
         return []
     }
 
-    return result
+    return result.total_usd_value
 }
 
-
+// old request
 // https://api.debank.com/v1/user/total_balance?id=0x5B5ECfc8122bA166b21d6Ea26268Ef97e09B2E9F
 // https://api.debank.com/v1/user/total_balance?addr=0x5B5ECfc8122bA166b21d6Ea26268Ef97e09B2E9F
 
