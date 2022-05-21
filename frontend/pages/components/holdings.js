@@ -16,7 +16,7 @@ function clean(obj) {
 
 
 export function Holdings(holdings) {
-    // try {
+    try {
         const table = clean(holdings.holdings.chain_list)
         const rows = table.map((holding) => (
             <tr key={holding.id}>
@@ -56,7 +56,7 @@ export function Holdings(holdings) {
             </>
         )
     }
-    // catch (err) {
-    //     console.log(err)
-    // }
-// }
+    catch (err) {
+        console.log(err)
+    }
+}

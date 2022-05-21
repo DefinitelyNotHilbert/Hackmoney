@@ -1,4 +1,4 @@
-import { Button, Space, SimpleGrid, Grid } from '@mantine/core'
+import { Button, Grid } from '@mantine/core'
 import {
     useAccount,
     useConnect,
@@ -44,11 +44,33 @@ export function Profile() {
                 </Grid.Col>
 
             </Grid>
+            
+
 
         )
     }
 
     return (
+        // <>
+        //     {connectors.map((connector) => (
+        //         <>
+        //                 <button
+        //                     disabled={!connector.ready}
+        //                     key={connector.id}
+        //                     onClick={() => connect(connector)}
+        //                 >
+        //                     {connector.name}
+        //                     {!connector.ready && ' (unsupported)'}
+        //                     {isConnecting &&
+        //                         connector.id === pendingConnector?.id &&
+        //                         ' (connecting)'}
+        //                 </button>
+        //         </>
+        //     ))}
+
+        //     {error && <div>{error.message}</div>}
+        // </>
+
         <Grid gutter='xl'>
             {connectors.map((connector) => (
                 <>

@@ -2,12 +2,11 @@ import styles from "../styles/CreatorSight.module.css";
 import React, { useState, useEffect } from "react";
 import { Profile } from "./components/profile";
 import { Holdings } from "./components/holdings";
-import { Wallet } from "./components/wallet";
-import { AssetsSupplied } from "./components/assetssupplied";
-import { AssetsBorrowed } from "./components/assetsborrowed";
 import { NFTList } from "./components/nftlist";
 import { NftHoldings } from "./components/nftholdings";
-import Head from 'next/head'
+import { DAO } from "./components/dao";
+import { Compound } from "./components/compound";
+import { EtherBalance } from "./components/etherbalance";
 
 {
   /* <i class="fa-solid fa-magnifying-glass"></i> */
@@ -48,14 +47,19 @@ const Home = () => {
   // Wagmi account hook
   const { data: account } = useAccount()
 
+  // only render components on client
+  const [isSSR, setIsSSR] = useState(true);
+
   const [opened, setOpened] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(false);
   const [address, setAddress] = useState(null);
   const [balances, setBalances] = useState([]);
   const [networth, setNetworth] = useState([]);
   const [holdings, setHoldings] = useState([]);
   const [nftlist, setNftlist] = useState([]);
   const [nftholdings, setNftholdings] = useState([]);
+  const [compound, setCompound] = useState([]);
+  const [daos, setDaos] = useState([]);
 
 
   const [state, setState] = useState();
@@ -63,35 +67,49 @@ const Home = () => {
   // Fetches all information performed by a search
   const getContractData = async () => {
     setState("loading");
+    setError(false);
+
     const getBalances = await fetch(`/api/balances?address=${address}`);
     const getNetworth = await fetch(`/api/networth?address=${address}`);
     const getHoldings = await fetch(`/api/holdings?address=${address}`);
     const getNftlist = await fetch(`/api/nftlist?address=${address}`);
     const getNftholdings = await fetch(`/api/nftholdings?address=${address}`);
+    const getCompound = await fetch(`/defi/compound/${address}`);
+    const getDaos = await fetch(`/daos/${address}`);
 
     const _balances = await getBalances.json();
     const _networth = await getNetworth.json();
     const _holdings = await getHoldings.json();
     const _nftlist = await getNftlist.json();
     const _nftholdings = await getNftholdings.json();
+    const _compound = await getCompound.json();
+    const _daos = await getDaos.json();
 
     setBalances(_balances.data);
     setNetworth(_networth.data);
     setHoldings(_holdings.data);
     setNftlist(_nftlist.data);
     setNftholdings(_nftholdings.data);
+    setCompound(JSON.stringify(_compound));
+    setDaos(JSON.stringify(_daos));
+    try{console.log(_daos)} catch(exeption){console.log(exeption)}
 
     setState("fresh");
-    if(networth == []) {setError('error')};
-    if(networth != []) {setError('ok') };
-
+    // if(balances.length === 0) {setError(true)} else {setError(false)};
+    // console.log(balances, balances.length)
+    // console.log(_balances, _balances.data)
+    // console.log(error)
+    // console.log(balances > 0, balances.length === 0, _balances > 0, _balances.length === 0)
   };
  
-  // If account address exists over wagmi the search is performed automatically
-  useEffect(()=> {if (account?.address) setAddress(account?.address) & getContractData()}, [account?.address])
+  // If account?.address exists over wagmi the search is performed automatically
+  // if account?.address updates, this first part of the useEffect function is called
+  useEffect(() => {if (account?.address) setAddress(account?.address) & getContractData()}, [account?.address])
+  useEffect(() => { setIsSSR(false) }, [])
 
 
   return (
+
 
     <Container size={1400} px={0}>
       <AppShell
@@ -169,6 +187,7 @@ const Home = () => {
         }
 
       >
+        
         <div className={styles.main}>
 
           {/* Search Bar */}
@@ -186,7 +205,6 @@ const Home = () => {
               />
             </Grid.Col>
             <Grid.Col span={2} style={{}}>
-              {/* <Group position="right" mt="md"> */}
               <Button
                 type="submit"
                 color="orange"
@@ -198,11 +216,9 @@ const Home = () => {
             </Grid.Col>
           </Grid>
 
-            <h2>Or connect your wallet</h2>
-            {/* Wagmi Wallet connector */}
-            {/* <Provider client={Wallet()}> */}
-            <Profile/>
-            {/* </Provider> */}
+          <h2>Or connect your wallet</h2>
+          {/* Wagmi Wallet connector */}
+          {!isSSR && <Profile/>}
 
           {/* Loading Bar */}
           <Space h="md" id="stats" />
@@ -220,7 +236,7 @@ const Home = () => {
 
           {/* If Search gives no result */}
           <Space h='md' id='stats' />
-          {error === 'error' && (
+          {error === true && (
             <>
               <Alert icon={<AlertCircle size={16} />} title="Bummer!" color="red">
                 We can't find anything under that address!
@@ -233,30 +249,17 @@ const Home = () => {
           {/* New Card Boxes appearing */}
           {balances && balances.length > 0 && (
             <>
-              {/* Ether Overview */}
-              <div className="mt-6">
-                <div
-                  style={{ display: "flex", alignItems: "center" }}
-                  className={styles.main}
-                >
-                  {/* <Image src="bullet-swirl.png" height={20} alt="" /> */}
-                  <Space w="xs" />
-                  <h2>Ether Balance</h2>
-                </div>
-                <Space h="md" />
-                <p>{balances} ether</p>
-                {/* <Card variant="overview" data={balances} /> */}
-              </div>
-              <Space h="lg" />
+              {/* Ether Balances */}
+              <EtherBalance balances={balances}/>
 
               {/* Holdings Overview */}
               <Holdings holdings={holdings}/>
             
-              {/* Assets Supplied */}
-              <AssetsSupplied/>
+              {/* DAOs */}
+              <DAO daos={daos}/>
 
-              {/* Assets Supplied */}
-              <AssetsBorrowed />
+              {/* Compund */}
+              <Compound compound={compound}/>
 
               {/* NFT List */}
               <NFTList nftlist={nftlist}/>

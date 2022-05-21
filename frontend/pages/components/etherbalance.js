@@ -2,7 +2,7 @@ import styles from "../../styles/CreatorSight.module.css";
 import { Card, Image, Space, Text, Table } from '@mantine/core'
 
 
-export function AssetsBorrowed() {
+export function EtherBalance(balances) {
 
     return (
         <>
@@ -12,10 +12,10 @@ export function AssetsBorrowed() {
                     className={styles.main}
                 >
                     <Space w="xs" />
-                    <h2>Assets Borrowed</h2>
+                    <h2>Ether Balance</h2>
                 </div>
                 <Space h="md" />
-                <Text>empty for now</Text>
+                <Text>{balances.balances} ether</Text>
             </Card>
             <Space h="lg" />
         </>
