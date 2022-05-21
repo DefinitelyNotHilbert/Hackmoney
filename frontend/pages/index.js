@@ -1,5 +1,9 @@
 import styles from "../styles/CreatorSight.module.css";
+import { AlertCircle } from 'tabler-icons-react';
+
 import React, { useState, useEffect } from "react";
+import { useAccount } from "wagmi";
+
 import { Profile } from "./components/profile";
 import { Holdings } from "./components/holdings";
 import { NFTList } from "./components/nftlist";
@@ -35,8 +39,7 @@ import {
   Table,
   Image,
 } from "@mantine/core";
-import { AlertCircle } from 'tabler-icons-react';
-import { useAccount } from "wagmi";
+
 
 
 const Home = () => {
