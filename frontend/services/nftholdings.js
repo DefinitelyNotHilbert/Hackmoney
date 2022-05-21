@@ -1,9 +1,6 @@
 import { etherscan_api_key } from './config'
 
 export async function getAllNFTTransfersOfHolder(address) {
-
-    // console.log('address input of NFT holdings', address)
-
     const data = await fetch(`https://api.etherscan.io/api
             ?module=account
             &action=tokennfttx

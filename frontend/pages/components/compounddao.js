@@ -2,7 +2,7 @@ import styles from "../../styles/Candid.module.css";
 import { Card, Image, Space, Text, Table } from '@mantine/core'
 
 
-export function CompoundDAO(compound) {
+export function CompoundDAO(compounddao) {
 
     return (
         <>
@@ -15,7 +15,7 @@ export function CompoundDAO(compound) {
                     <h2>Compound DAO</h2>
                 </div>
                 <Space h="md" />
-                <Text>{JSON.stringify(compound)}</Text>
+                <Text>{JSON.stringify(compounddao)}</Text>
             </Card>
             <Space h="lg" />
         </>

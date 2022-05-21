@@ -1,6 +1,6 @@
-import '../styles/globals.css'
-import {WagmiProvider} from 'wagmi'
-import { Wallet } from './components/wallet'
+import '../styles/globals.css';
+import { WagmiProvider } from 'wagmi';
+import { Wallet } from './components/wallet';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -10,4 +10,4 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
-export default MyApp
+export default MyApp;

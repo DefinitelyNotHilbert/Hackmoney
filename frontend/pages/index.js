@@ -56,7 +56,7 @@ const Home = () => {
 
   const [opened, setOpened] = useState(false);
   const [error, setError] = useState(false);
-  const [address, setAddress] = useState(null);
+  const [address, setAddress] = useState('');
   const [balances, setBalances] = useState([]);
   const [networth, setNetworth] = useState([]);
   const [holdings, setHoldings] = useState([]);
@@ -76,6 +76,7 @@ const Home = () => {
     setError(false);
 
     const getBalances = await fetch(`/api/balances?address=${address}`);
+    console.log(getBalances)
     const getNetworth = await fetch(`/api/networth?address=${address}`);
     const getHoldings = await fetch(`/api/holdings?address=${address}`);
     const getNftlist = await fetch(`/api/nftlist?address=${address}`);
@@ -85,6 +86,7 @@ const Home = () => {
     const getCompoundDao = await fetch(`/dao/compound/${address}`);
 
     const _balances = await getBalances.json();
+    console.log(_balances)
     const _networth = await getNetworth.json();
     const _holdings = await getHoldings.json();
     const _nftlist = await getNftlist.json();
@@ -92,6 +94,8 @@ const Home = () => {
     const _compounddefi = await getCompoundDefi.json();
     const _daos = await getDaos.json();
     const _compounddao = await getCompoundDao.json();
+
+    console.log(_balances.data)
 
     setBalances(_balances.data);
     setNetworth(_networth.data);
@@ -119,8 +123,6 @@ const Home = () => {
 
 
   return (
-
-
     <Container size={1400} px={0}>
       <AppShell
         styles={{
@@ -142,6 +144,7 @@ const Home = () => {
             hidden={!opened}
             width={{ sm: 200, lg: 300 }}
           >
+            {/* Show Side Bar if balances exists */}
             {balances && balances.length ? (
               <>
                 <Space h="md" />
@@ -272,7 +275,7 @@ const Home = () => {
               <CompoundDefi compound={compounddefi}/>
 
               {/* Compound DAO */}
-              <CompoundDAO compound={compounddao} />
+              <CompoundDAO compounddao={compounddao} />
 
               {/* NFT List */}
               <NFTList nftlist={nftlist}/>

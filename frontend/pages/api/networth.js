@@ -7,6 +7,6 @@ export default async function handler(req, res) {
 
     const networth = await getHoldings(address)
     res.status(200).json({
-        data: networth.total_usd_value
+        data: networth
     })
 }

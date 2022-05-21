@@ -1,7 +1,7 @@
-import { debank_api_key } from './config'
+import { debank_api_key } from './config';
 
 export async function getHoldings(address) {
-    const response = await fetch(`https://pro-openapi.debank.com/v1/user/total_balance?id=${address}` {
+    const response = await fetch(`https://pro-openapi.debank.com/v1/user/total_balance?id=${address}`, {
         method: 'GET',
         headers: {
             "AccessKey": debank_api_key
@@ -9,12 +9,7 @@ export async function getHoldings(address) {
     });
     const result = (await response.json());
 
-    console.log('\n networth response.json:', result)
-
-    if (result.error_code != 0) {
-        console.log('data of holdings.js not ok', result.error_msg)
-        return []
-    }
+    // console.log('\n holdings response.json:', result)
 
     return result.chain_list
 }

@@ -15,7 +15,7 @@ export function EtherBalance(balances) {
                     <h2>Ether Balance</h2>
                 </div>
                 <Space h="md" />
-                <Text>{balances.balances} ether</Text>
+                <Text>{balances} ether</Text>
             </Card>
             <Space h="lg" />
         </>
