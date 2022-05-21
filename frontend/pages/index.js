@@ -10,7 +10,7 @@ import { NFTList } from "./components/nftlist";
 import { NftHoldings } from "./components/nftholdings";
 import { DAO } from "./components/dao";
 import { CompoundDefi } from "./components/compounddefi";
-import { CompoundDAO } from "./components/compounddefi";
+import { CompoundDAO } from "./components/compounddao";
 import { EtherBalance } from "./components/etherbalance";
 
 {
@@ -66,8 +66,6 @@ const Home = () => {
   const [daos, setDaos] = useState([]);
   const [compounddao, setCompoundDao] = useState([]);
 
-
-
   const [state, setState] = useState();
 
   // Fetches all information performed by a search
@@ -75,8 +73,7 @@ const Home = () => {
     setState("loading");
     setError(false);
 
-    const getBalances = await fetch(`/api/balances?address=${address}`);
-    console.log(getBalances)
+    // const getBalances = await fetch(`/api/balances?address=${address}`);
     const getNetworth = await fetch(`/api/networth?address=${address}`);
     const getHoldings = await fetch(`/api/holdings?address=${address}`);
     const getNftlist = await fetch(`/api/nftlist?address=${address}`);
@@ -85,8 +82,7 @@ const Home = () => {
     const getDaos = await fetch(`/daos/${address}`);
     const getCompoundDao = await fetch(`/dao/compound/${address}`);
 
-    const _balances = await getBalances.json();
-    console.log(_balances)
+    // const _balances = await getBalances.json();
     const _networth = await getNetworth.json();
     const _holdings = await getHoldings.json();
     const _nftlist = await getNftlist.json();
@@ -95,10 +91,14 @@ const Home = () => {
     const _daos = await getDaos.json();
     const _compounddao = await getCompoundDao.json();
 
-    console.log(_balances.data)
+    // console.log(getBalances)
+    // console.log(_balances)
+    // console.log(_balances.data)
+    // console.log(JSON.stringify(_balances.data))
+    // console.log(_balances?.balances)
 
-    setBalances(_balances.data);
-    setNetworth(_networth.data);
+    // setBalances(_balances.data);
+    setNetworth(_networth.data)
     setHoldings(_holdings.data);
     setNftlist(_nftlist.data);
     setNftholdings(_nftholdings.data);
@@ -145,7 +145,7 @@ const Home = () => {
             width={{ sm: 200, lg: 300 }}
           >
             {/* Show Side Bar if balances exists */}
-            {balances && balances.length ? (
+            {networth && networth.length ? (
               <>
                 <Space h="md" />
                 <div
@@ -260,10 +260,10 @@ const Home = () => {
 
           <Divider my='sm'/>
           {/* New Card Boxes appearing */}
-          {balances && balances.length > 0 && (
+          {networth && networth.length > 0 && (
             <>
               {/* Ether Balances */}
-              <EtherBalance balances={balances}/>
+              {/* <EtherBalance balances={balances}/> */}
 
               {/* Holdings Overview */}
               <Holdings holdings={holdings}/>
