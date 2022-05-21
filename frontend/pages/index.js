@@ -1,4 +1,4 @@
-import styles from "../styles/CreatorSight.module.css";
+import styles from "../styles/Candid.module.css";
 import { AlertCircle } from 'tabler-icons-react';
 
 import React, { useState, useEffect } from "react";
@@ -9,7 +9,8 @@ import { Holdings } from "./components/holdings";
 import { NFTList } from "./components/nftlist";
 import { NftHoldings } from "./components/nftholdings";
 import { DAO } from "./components/dao";
-import { Compound } from "./components/compound";
+import { CompoundDefi } from "./components/compounddefi";
+import { CompoundDAO } from "./components/compounddefi";
 import { EtherBalance } from "./components/etherbalance";
 
 {
@@ -61,8 +62,10 @@ const Home = () => {
   const [holdings, setHoldings] = useState([]);
   const [nftlist, setNftlist] = useState([]);
   const [nftholdings, setNftholdings] = useState([]);
-  const [compound, setCompound] = useState([]);
+  const [compounddefi, setCompoundDefi] = useState([]);
   const [daos, setDaos] = useState([]);
+  const [compounddao, setCompoundDao] = useState([]);
+
 
 
   const [state, setState] = useState();
@@ -77,24 +80,28 @@ const Home = () => {
     const getHoldings = await fetch(`/api/holdings?address=${address}`);
     const getNftlist = await fetch(`/api/nftlist?address=${address}`);
     const getNftholdings = await fetch(`/api/nftholdings?address=${address}`);
-    const getCompound = await fetch(`/defi/compound/${address}`);
+    const getCompoundDefi = await fetch(`/defi/compound/${address}`);
     const getDaos = await fetch(`/daos/${address}`);
+    const getCompoundDao = await fetch(`/dao/compound/${address}`);
 
     const _balances = await getBalances.json();
     const _networth = await getNetworth.json();
     const _holdings = await getHoldings.json();
     const _nftlist = await getNftlist.json();
     const _nftholdings = await getNftholdings.json();
-    const _compound = await getCompound.json();
+    const _compounddefi = await getCompoundDefi.json();
     const _daos = await getDaos.json();
+    const _compounddao = await getCompoundDao.json();
 
     setBalances(_balances.data);
     setNetworth(_networth.data);
     setHoldings(_holdings.data);
     setNftlist(_nftlist.data);
     setNftholdings(_nftholdings.data);
-    setCompound(JSON.stringify(_compound));
+    setCompoundDefi(JSON.stringify(_compounddefi));
     setDaos(JSON.stringify(_daos));
+    setCompoundDao(JSON.stringify(_compounddao));
+
     try{console.log(_daos)} catch(exeption){console.log(exeption)}
 
     setState("fresh");
@@ -261,8 +268,11 @@ const Home = () => {
               {/* DAOs */}
               <DAO daos={daos}/>
 
-              {/* Compund */}
-              <Compound compound={compound}/>
+              {/* Compund Defi*/}
+              <CompoundDefi compound={compounddefi}/>
+
+              {/* Compound DAO */}
+              <CompoundDAO compound={compounddao} />
 
               {/* NFT List */}
               <NFTList nftlist={nftlist}/>

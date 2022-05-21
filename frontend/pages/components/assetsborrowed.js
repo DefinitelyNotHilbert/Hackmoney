@@ -1,8 +1,8 @@
-import styles from "../../styles/CreatorSight.module.css";
+import styles from "../../styles/Candid.module.css";
 import { Card, Image, Space, Text, Table } from '@mantine/core'
 
 
-export function Compound(compound) {
+export function AssetsSupplied() {
 
     return (
         <>
@@ -12,10 +12,10 @@ export function Compound(compound) {
                     className={styles.main}
                 >
                     <Space w="xs" />
-                    <h2>Compound</h2>
+                    <h2>Assets Borrowed</h2>
                 </div>
                 <Space h="md" />
-                <Text>{JSON.stringify(compound)}</Text>
+                <Text>empty for now</Text>
             </Card>
             <Space h="lg" />
         </>

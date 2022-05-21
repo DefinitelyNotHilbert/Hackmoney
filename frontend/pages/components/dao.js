@@ -1,4 +1,4 @@
-import styles from "../../styles/CreatorSight.module.css";
+import styles from "../../styles/Candid.module.css";
 import { Card, Image, Space, Text, Table } from '@mantine/core'
 
 

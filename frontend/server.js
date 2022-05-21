@@ -23,6 +23,13 @@ const apiPaths = {
             '^/daos': '/daos'
         },
         changeOrigin: true
+    }, 
+    '/dao': {
+        target: 'http://localhost:8000',
+        pathRewrite: {
+            '^/dao': '/dao'
+        },
+        changeOrigin: true
     }
 }
 
@@ -34,6 +41,7 @@ app.prepare().then(() => {
     if (isDevelopment) {
         server.use('/defi', createProxyMiddleware(apiPaths['/defi']));
         server.use('/daos', createProxyMiddleware(apiPaths['/daos']));
+        server.use('/dao', createProxyMiddleware(apiPaths['/dao']));
     }
 
     server.all('*', (req, res) => {

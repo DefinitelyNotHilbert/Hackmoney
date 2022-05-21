@@ -2,7 +2,7 @@ import styles from "../../styles/Candid.module.css";
 import { Card, Image, Space, Text, Table } from '@mantine/core'
 
 
-export function NftHoldings(nftholdings) {
+export function CompoundDAO(compound) {
 
     return (
         <>
@@ -12,10 +12,10 @@ export function NftHoldings(nftholdings) {
                     className={styles.main}
                 >
                     <Space w="xs" />
-                    <h2>NFT Holdings on Etherscan</h2>
+                    <h2>Compound DAO</h2>
                 </div>
                 <Space h="md" />
-                <p>{JSON.stringify(nftholdings)}</p>
+                <Text>{JSON.stringify(compound)}</Text>
             </Card>
             <Space h="lg" />
         </>
