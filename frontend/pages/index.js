@@ -58,6 +58,7 @@ const Home = () => {
   const [error, setError] = useState(false);
   const [address, setAddress] = useState('');
   const [balances, setBalances] = useState([]);
+  const [walletage, setWalletAge] = useState([])
   const [holdings, setHoldings] = useState([]);
   const [nftlist, setNftlist] = useState([]);
   const [nftholdings, setNftholdings] = useState([]);
@@ -73,6 +74,7 @@ const Home = () => {
     setError(false);
 
     const getBalances = await fetch(`/api/balances?address=${address}`);
+    const getWalletAge = await fetch(`/api/walletage?address=${address}`);
     const getHoldings = await fetch(`/api/holdings?address=${address}`);
     const getNftlist = await fetch(`/api/nftlist?address=${address}`);
     const getNftholdings = await fetch(`/api/nftholdings?address=${address}`);
@@ -81,6 +83,7 @@ const Home = () => {
     const getCompoundDao = await fetch(`/dao/compound/${address}`);
 
     const _balances = await getBalances.json();
+    const _walletage = await getWalletAge.json();
     const _holdings = await getHoldings.json();
     const _nftlist = await getNftlist.json();
     const _nftholdings = await getNftholdings.json();
@@ -88,13 +91,8 @@ const Home = () => {
     const _daos = await getDaos.json();
     const _compounddao = await getCompoundDao.json();
 
-    console.log(getHoldings)
-    console.log(_holdings)
-    console.log(_holdings.data)
-    console.log(holdings)
-    console.log(holdings.length > 0)
-
     setBalances(_balances.data);
+    setWalletAge(_walletage.data);
     setHoldings(_holdings.data);
     setNftlist(_nftlist.data);
     setNftholdings(_nftholdings.data);
@@ -102,7 +100,7 @@ const Home = () => {
     setDaos(JSON.stringify(_daos));
     setCompoundDao(JSON.stringify(_compounddao));
 
-    try{console.log(_daos)} catch(exeption){console.log(exeption)}
+    try{console.log(_daos)} catch(exeption){console.log(exeption)};
 
     setState("fresh");
     // if(balances.length === 0) {setError(true)} else {setError(false)};
