@@ -26,12 +26,15 @@ export async function getSocialScore(address) {
     try { var pubgoods_score = Math.round(Math.min(PubGoods, pubgoods_10) * 10 * 100) / 100 } catch (e) {console.log(e)};
     
     const social_score = (age_score + part_score + multisig_score + pubgoods_score) / 4
+
+    const result = [{ 'criteria': 'social_score', 'value': social_score },
+        { 'criteria': 'age_score', 'value': age_score },
+        { 'criteria': 'part_score', 'value': part_score },
+        { 'criteria': 'multisig_score', 'value': multisig_score },
+        { 'criteria': 'pubgoods_score', 'value': pubgoods_score }
+    ]
     
     return {
-        'social_score': social_score, 
-        'age_score': age_score, 
-        'part_score': part_score,
-        'multisig_score': multisig_score,
-        'pubgoods_score': pubgoods_score
+        result
     }
 }

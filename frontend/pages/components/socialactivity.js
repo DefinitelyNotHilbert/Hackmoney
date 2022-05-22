@@ -11,9 +11,20 @@ import {
     TableCaption,
     TableContainer,
 } from '@chakra-ui/react'
+
 export function SocialActivity(socialscore) {
 
-    console.log('socialscore', socialscore, socialscore.length)
+    const input = socialscore?.socialscore.result
+    try {
+        var rows = input.map((score) => (
+            <tr key={score.criteria}>
+                <td>{score.criteria}</td>
+                <td>{score.value}</td>
+            </tr>
+        ))
+    } catch (e) {
+        var rows = []
+    }
 
     return (
         <>
@@ -23,12 +34,22 @@ export function SocialActivity(socialscore) {
                     className={styles.main}
                 >
                     <Space w="xs" />
-                    <h2>Social Overview</h2>
+                    <h2>Social Scores</h2>
                 </div>
                 <Space h="md" />
-                {/* <Text>{JSON.stringify(socialscore.socialscore)}</Text> */}
-                {socialscore.length > 0 && (                    
+                {/* <Text>{JSON.stringify(socialscore.socialscore.result)}</Text> */}
+                <Table highlightOnHover>
+                    <thead>
+                        <tr>
+                            <th>Criteria</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>{rows}</tbody>
+                </Table>
+                {/* {socialscore.social_score !== null && (                    
                     <TableContainer>
+                        <p>{JSON.stringify(socialscore)}</p>
                         <Table variant ='striped' colorScheme='gray' size='lg'>
                             <Thead>
                                 <Tr>
@@ -59,8 +80,8 @@ export function SocialActivity(socialscore) {
                                 </Tr>
                             </Tbody>
                         </Table>
-                    </TableContainer>
-                )}
+                    </TableContainer> 
+                )}*/}
             </Card>
             <Space h="lg" />
         </>
