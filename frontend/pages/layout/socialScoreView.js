@@ -34,7 +34,7 @@ const SocialScoreView = forwardRef((props, ref) => {
             total= total + SocialScore.pubgoods_score;
         }
         
-        totalScore=(total/idx )*10
+        totalScore=(total/idx )*(idx*1.3)
         console.log('totalScore' , totalScore)
       }
   }))
@@ -52,7 +52,7 @@ const SocialScoreView = forwardRef((props, ref) => {
                 </div>
                 <div className="w-full flex justify-center items-center">
                                         
-                    <ScoreGauge val={ Math.floor(totalScore,2) } />
+                    <ScoreGauge val={ totalScore.toFixed(1) } />
                 </div>
             </div>
             <table className="relative w-full ">
@@ -65,19 +65,19 @@ const SocialScoreView = forwardRef((props, ref) => {
                 <tbody className="divide-y text-sm">
                 <tr className="bg-white">
                     <td className="p-2 text-left">DAO Voter</td>
-                    <td className="p-2 text-right">{Math.floor(SocialScore.part_score,2)}</td>
+                    <td className="p-2 text-right">{SocialScore.part_score}</td>
                 </tr>
                 <tr className="bg-gray-100">
                     <td className="p-2 text-left">Multi-sig signer</td>
-                    <td className="p-2 text-right">{Math.floor(SocialScore.multisig_score,2)}</td>
+                    <td className="p-2 text-right">{SocialScore.multisig_score}</td>
                 </tr>
                 <tr className="bg-white">
                     <td className="p-2 text-left">Public good doner</td>
-                    <td className="p-2 text-right">{Math.floor(SocialScore.pubgoods_score,2)}</td>
+                    <td className="p-2 text-right">{SocialScore.pubgoods_score}</td>
                 </tr>
                 <tr className="bg-gray-100">
                     <td className="p-2 text-left">Age</td>
-                    <td className="p-2 text-right">{Math.floor(SocialScore.age_score,2)}</td>
+                    <td className="p-2 text-right">{SocialScore.age_score}</td>
                 </tr>
                 </tbody>
             </table>
