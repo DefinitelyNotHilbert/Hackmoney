@@ -23,7 +23,6 @@ export default function ChooseLiquidityPoolView({val}) {
             at: getRndDate(2022,0,1)
         })
     }
-    console.log(feeds)
     const rows = feeds.map((_lp) => (
         <tr className="bg-white">
             <td className="p-2 text-left">
