@@ -32,7 +32,7 @@ function timeConverter(UNIX_timestamp) {
     return time;
 }
 
-export async function getWalletAge(address) {
+export async function getWalletAge(address, time_or_unix) {
     const result = await getTransactions(address)
     
     if (result.message != 'OK') {
@@ -43,7 +43,13 @@ export async function getWalletAge(address) {
     // get first value from the transaction block which is limited to 1000
     const transactions = result.result;
     const unix_timestamp = transactions[0].timeStamp;
-    const time = timeConverter(unix_timestamp)
-    return time
+
+    if (time_or_unix === true) {
+        const time = timeConverter(unix_timestamp)
+        return time
+    } else {
+        return unix_timestamp
+    }
+
 }
 
