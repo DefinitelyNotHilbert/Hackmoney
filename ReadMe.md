@@ -7,7 +7,7 @@
 * [Casss](https://github.com/grandmasterLeu): User interface
 
 
-## Backend
+# Backend
 
 ### Using Conda
 If you are using Conda (anaconda) you can create a virtual envirornment from the `env.yml` file. (this will take a while)
@@ -69,10 +69,11 @@ using /dao/compound/<address> to obtain:
 - #proposals votes
 - #delegates
 [http://localhost:8000/dao/compound/0x683a4f9915d6216f73d6df50151725036bd26c02](http://localhost:8000/dao/compound/0x683a4f9915d6216f73d6df50151725036bd26c02) 
+  
 
+  
 
-
-## Quickstart Frontend
+# Quickstart Frontend
 First, install all packages
 ```bash
 npm install
