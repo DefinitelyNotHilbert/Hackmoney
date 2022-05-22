@@ -1,7 +1,8 @@
 export async function getPartRate(address) {
     // fetch data
-    const DaoActivity = await (await fetch(`/daos/${address}`)).json();
-
+    try {
+        const DaoActivity = await (await fetch(`http://localhost:3000/daos/${address}`)).json();
+  
     // check if empty
     if (DaoActivity.daos.length !== 0) {
         const total_proposals = DaoActivity.total_proposals
@@ -9,13 +10,13 @@ export async function getPartRate(address) {
         const dao_token_map = DaoActivity.dao_token_map
         const votes = DaoActivity.votes
         const participation_rates = []
-        const tokens = []
+        // const tokens = []
 
         // fetch single datapoints
         for (var key in total_proposals) {
             var part_rate = votes[key] / total_proposals[key]
             participation_rates.push(part_rate)
-            tokens.push(dao_token_map[key][1].symbol)
+            // tokens.push(dao_token_map[key][1].symbol)
         }
         // calc average
         var sum = 0
@@ -28,6 +29,10 @@ export async function getPartRate(address) {
         
     } else {
         console.log('response of DaoActivity is empty')
+    }
+    }
+    catch (e) {
+        console.log(e)
     }
 }
 
