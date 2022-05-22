@@ -11,7 +11,6 @@ import { NftHoldings } from "./components/nftholdings";
 import { DAO } from "./components/dao";
 import { CompoundDefi } from "./components/compounddefi";
 import { CompoundDAO } from "./components/compounddao";
-// import { SocialScore } from "./components/socialscore";
 import { SocialActivity } from "./components/socialactivity";
 
 
@@ -101,11 +100,14 @@ const Home = () => {
     setHoldings(_holdings.data);
     setNftlist(_nftlist.data);
     setNftholdings(_nftholdings.data);
-    setCompoundDefi(JSON.stringify(_compounddefi));
-    setDaos(JSON.stringify(_daos));
-    setCompoundDao(JSON.stringify(_compounddao));
+    setCompoundDefi(_compounddefi);
+    setDaos(_daos);
+    setCompoundDao(_compounddao);
     setSocialScore(_socialscore.data);
     setWalletAge(_walletage.data);
+
+    console.log('_daos', _daos)
+    console.log('daos', daos)
 
     setState("fresh");
   };

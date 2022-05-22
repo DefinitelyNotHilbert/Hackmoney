@@ -9,21 +9,29 @@ export function DAO(daos) {
     const votes = input.votes
     const data = []
 
-    // console.log(daos)
-    // console.log(input)
+    // console.log('daos', daos)
+    // console.log('input', input)
+    // console.log('input.daos', input.daos)
+    // console.log('input.daos', input.daos?.length)
 
-    // for (let i = 0; i < input.daos.length; i++) {
-    //     data.push({ 'Name': names[i], 'Total Proposals': proposals[names[i]], 'Votes': votes[names[i]], 'Participation Rate': (votes[names[i]] / proposals[names[i]]) })
-    // }
-    // console.log(data)
+    try {
+        for (let i = 0; i < input.daos?.length; i++) {
+            data.push({ 'Name': names[i], 'Total_Proposals': proposals[names[i]], 'Votes': votes[names[i]], 'Participation_Rate': (votes[names[i]] / proposals[names[i]]) })
+        }
 
-    // const rows = daos.map((dao) => (
-    //     <tr key={dao.daos}>
-    //         <td>{dao.daos}</td>
-    //         <td>{dao.total_proposals}</td>
-    //         <td>{dao.daos}</td>
-    //         </tr>
-    // ))
+        console.log('data', data)
+        var rows = data.map((dao) => (
+            <tr key={dao.Name}>
+                <td>{dao.Name}</td>
+                <td>{dao.Total_Proposals}</td>
+                <td>{dao.Votes}</td>
+                <td>{dao.Participation_Rate}</td>
+                </tr>
+        ))
+        }
+    catch (e) {
+        var rows = []
+    }
 
     return (
         <>
@@ -35,9 +43,19 @@ export function DAO(daos) {
                     <Space w="xs" />
                     <h2>DAO Activity</h2>
                 </div>
+                <Table highlightOnHover>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Total Proposals</th>
+                            <th>Votes</th>
+                            <th>Participation Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody>{rows}</tbody>
+                </Table>
                 <Space h="md" />
-                <Text>{JSON.stringify(daos)}</Text>
-                {/* {(daos)} */}
+                {/* <Text>{JSON.stringify(daos.daos)}</Text> */}
             </Card>
             <Space h="lg" />
         </>
