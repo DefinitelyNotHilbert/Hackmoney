@@ -4,6 +4,10 @@
 
 | UI | Api Call | File Locations |
 | --- | --- | --- |
+
+
+| UI | Api Call | File Locations |
+| --- | --- | --- |
 | Following & Followers | none | none |
 | Candid Score | none | none |
 | Wallet Age Score | none | none |
