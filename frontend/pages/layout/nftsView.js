@@ -9,7 +9,7 @@ const NftsView = forwardRef((props, ref) => {
         }
     }))
     const load = (_ds)=>{
-        console.log('nft ds:::', _ds)
+        // console.log('nft ds:::', _ds)
         let filted=[];
         totalSize = _ds.data.length;
         if(totalSize> 10){

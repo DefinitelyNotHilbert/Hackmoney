@@ -12,10 +12,10 @@ const SocialScoreView = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({
       reload(_socialscore){
           SocialScore = _socialscore.data;
-          console.log('_socialscore::', _socialscore)
-          console.log('multisig_score::', SocialScore.multisig_score)
+        //   console.log('_socialscore::', _socialscore)
+        //   console.log('multisig_score::', SocialScore.multisig_score)
 
-          let idx=0;
+        let idx=0;
         let total=0;
         if(SocialScore.age_score != null){
             ++idx;

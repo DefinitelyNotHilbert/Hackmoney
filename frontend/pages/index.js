@@ -130,7 +130,7 @@ const Home = () => {
     // try{console.log(_daos)} catch(exeption){console.log(exeption)}
 
     /** child component relaod */
-    refProfile.current.reload(_walletage)
+    refProfile.current.reload(_walletage, _socialscore)
     refSocialVeiw.current.reload(_socialscore)
     refHolding.current.reload(_holdings);
     refNFTList.current.reload(_nftlist)
