@@ -1,9 +1,10 @@
 # Social Analytics
 
-* DefinitielyNotHibert
-* timdoubleg
-* fistline
-* casss
+## Authors 
+* [DefinitielyNotHibert](https://github.com/DefinitelyNotHilbert): Backend development
+* [Timdoubleg](https://github.com/timdoubleg): Frontend development
+* [Fistline](https://github.com/fistline): Frontend development
+* [Casss](https://github.com/grandmasterLeu): User interface
 
 ## About 
 ...
