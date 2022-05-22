@@ -12,9 +12,7 @@ export default function ProfileView() {
   const { data: account } = useAccount()
   const { data: ensAvatar } = useEnsAvatar({ addressOrName: account?.address })
   const { data: ensName } = useEnsName({ address: account?.address })
-  const { connect, connectors, error, isConnecting, pendingConnector } =
-      useConnect()
-  const { disconnect } = useDisconnect()
+  
 
   // console.log('#############',connectors)
   return (
@@ -22,7 +20,7 @@ export default function ProfileView() {
    <div className="flex flex-col md:flex-row">
       <div className="flex justify-center m-5">
       {
-        ensAvatar === undefined
+        ensAvatar === undefined || ensAvatar == null
         ?<div className='w-48 h-48 bg-gray-100 rounded-full flex justify-center items-center'>Empty ens Avatar</div>
         :<img src={ensAvatar} alt="profile image" />
       }
