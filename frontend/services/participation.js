@@ -1,7 +1,7 @@
 export async function getPartRate(address) {
     // fetch data
     try {
-        const DaoActivity = await (await fetch(`http://localhost:3000/daos/${address}`)).json();
+        const DaoActivity = await (await fetch(`https://hackmoney.herokuapp.com/daos/${address}`)).json();
   
     // check if empty
     if (DaoActivity.daos.length !== 0) {

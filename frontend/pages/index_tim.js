@@ -11,8 +11,9 @@ import { NftHoldings } from "./components/nftholdings";
 import { DAO } from "./components/dao";
 import { CompoundDefi } from "./components/compounddefi";
 import { CompoundDAO } from "./components/compounddao";
-import { EtherBalance } from "./components/etherbalance";
-import { SocialScore } from "./components/socialscore";
+// import { SocialScore } from "./components/socialscore";
+import { SocialActivity } from "./components/socialactivity";
+
 
 {
   /* <i class="fa-solid fa-magnifying-glass"></i> */
@@ -42,7 +43,6 @@ import {
   Table,
   Image,
 } from "@mantine/core";
-import { SocialActivity } from "./components/socialactivity";
 
 
 
@@ -56,7 +56,6 @@ const Home = () => {
 
   // only render components on client
   const [isSSR, setIsSSR] = useState(true);
-
   const [opened, setOpened] = useState(false);
   const [error, setError] = useState(false);
   const [address, setAddress] = useState('');
@@ -78,13 +77,7 @@ const Home = () => {
     setError(false);
 
     const getBalances = await fetch(`/api/balances?address=${address}`);
-    const _balances = await getBalances.json();
-    setBalances(_balances.data);
-
     const getHoldings = await fetch(`/api/holdings?address=${address}`);
-    const _holdings = await getHoldings.json();
-    setHoldings(_holdings.data);
-
     const getNftlist = await fetch(`/api/nftlist?address=${address}`);
     const getNftholdings = await fetch(`/api/nftholdings?address=${address}`);
     const getCompoundDefi = await fetch(`/defi/compound/${address}`);
@@ -93,6 +86,8 @@ const Home = () => {
     const getSocialScore = await fetch(`/api/socialscore?address=${address}`);
     const getWalletAge = await fetch(`/api/walletage?address=${address}`);
 
+    const _balances = await getBalances.json();
+    const _holdings = await getHoldings.json();
     const _nftlist = await getNftlist.json();
     const _nftholdings = await getNftholdings.json();
     const _compounddefi = await getCompoundDefi.json();
@@ -102,7 +97,8 @@ const Home = () => {
     const _walletage = await getWalletAge.json();
 
     console.log('balances', _balances.data)
-
+    setBalances(_balances.data);
+    setHoldings(_holdings.data);
     setNftlist(_nftlist.data);
     setNftholdings(_nftholdings.data);
     setCompoundDefi(JSON.stringify(_compounddefi));
@@ -111,14 +107,7 @@ const Home = () => {
     setSocialScore(_socialscore.data);
     setWalletAge(_walletage.data);
 
-    // try{console.log(_daos)} catch(exeption){console.log(exeption)}
-
     setState("fresh");
-    // if(balances.length === 0) {setError(true)} else {setError(false)};
-    // console.log(balances, balances.length)
-    // console.log(_balances, _balances.data)
-    // console.log(error)
-    // console.log(balances > 0, balances.length === 0, _balances > 0, _balances.length === 0)
   };
  
   // If account?.address exists over wagmi the search is performed automatically
@@ -150,7 +139,7 @@ const Home = () => {
             width={{ sm: 200, lg: 300 }}
           >
             {/* Show Side Bar if balances exists */}
-            {balances && balances.length ? (
+            {balances.data && balances.length ? (
               <>
                 <Space h="md" />
                 <div
