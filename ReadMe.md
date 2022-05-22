@@ -11,6 +11,7 @@
 | Social Score | none yet | none yet |
 
 ## Profile Summary Card Left
+
 | UI | Api Call | File Locations |
 | --- | --- | --- |
 | Social Score | none yet | none yet |
@@ -19,6 +20,7 @@
 | Public good Doner | none (will be hardcoded) | none |
 | Multi-sig signer | /api/walletage?={address} | see api & services folder in frontend|
 | Latest Activity | none (will be empty) | none |
+
 
 ## Profile Summary Card Middle
 | UI | Api Call | File Locations |
