@@ -20,10 +20,10 @@ export async function getSocialScore(address) {
     var multisig_score = null
     var pubgoods_score = null
 
-    try { var age_score = (Date.now() - WalletAge) / (Date.now() - age_base_10) * 10} catch (e) {console.log(e)};
-    try { var part_score = PartRate * 10 } catch (e) { console.log(e)};
-    try { var multisig_score = Math.min(MultiSig.count, multi_sig_10) } catch (e) {console.log(e)};
-    try { var pubgoods_score = Math.min(PubGoods, pubgoods_10) * 10 } catch (e) {console.log(e)};
+    try { var age_score = Math.round((Date.now() - WalletAge) / (Date.now() - age_base_10) * 10 * 100) / 100} catch (e) {console.log(e)};
+    try { var part_score = Math.round(PartRate * 10 * 100) / 100 } catch (e) { console.log(e)};
+    try { var multisig_score = Math.round(Math.min(MultiSig.count, multi_sig_10)*100) / 100 } catch (e) {console.log(e)};
+    try { var pubgoods_score = Math.round(Math.min(PubGoods, pubgoods_10) * 10 * 100) / 100 } catch (e) {console.log(e)};
     
     const social_score = (age_score + part_score + multisig_score + pubgoods_score) / 4
     
