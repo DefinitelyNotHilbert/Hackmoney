@@ -1,16 +1,33 @@
-# Authors
+# Social Analytics
 
-- [DefinitelyNotHilbert](https://github.com/DefinitelyNotHilbert): Backend development
-- [Timdoubleg](https://github.com/timdoubleg): Frontend development
-- [Fistline](https://github.com/fistline): Frontend development
-- [Grandmasterleu](https://github.com/grandmasterLeu): User interface
+* DefinitielyNotHibert
+* timdoubleg
+* fistline
+* casss
+
+## About 
+...
+
+## Data sources and calculations
 
 
-# Integrations
 
-## Top
+## Quickstart
+In order to run this code open two separate terminals: 
+1. Run the backend according to ReadMe in backend subfolder
+2. Run the frontend according to ReadMe.md in the frontend subfolder* 
+
+## Credits
+...
+
+## Disclaimer
+This project was created for HACK MONEY 2022 organized by ETH Global. 
 
 
+
+## Integrations (will be deleted later)
+
+### Top
 | UI | Api Call | File Locations |
 | --- | --- | --- |
 | Following & Followers | none | none |
@@ -18,7 +35,7 @@
 | Wallet Age Score | none | none |
 
 
-## Profile Summary Card Left
+### Profile Summary Card Left
 
 | UI | Api Call | File Locations |
 | --- | --- | --- |
@@ -30,7 +47,7 @@
 | Latest Activity | none (will be empty) | none |
 
 
-## Profile Summary Card Middle
+### Profile Summary Card Middle
 
 | UI | Api Call | File Locations |
 | --- | --- | --- |
@@ -38,12 +55,18 @@
 | AssetsSupplied | /defi/compound/{address} | see backend folder |
 | DeFi Activity | none yet | none yet |
 
-## Profile Summary Card Right
+### Profile Summary Card Right
 
 | UI | Api Call | File Locations |
 | --- | --- | --- |
 | Holdings | /api/holdings?={address} | see api & services folder in frontend |
 | NFTs | /api/nftlist?={address} | see api & services folder in frontend |
 | NetWorth | /api/holdings?={address} | see api & services folder in frontend |
+
+
+
+
+
+
 
 
