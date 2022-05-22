@@ -1,5 +1,5 @@
 import styles from "../styles/Candid.module.css";
-import { AlertCircle } from 'tabler-icons-react';
+import { AlertCircle, Coin, Wallet, Social, Exchange} from 'tabler-icons-react';
 
 import React, { useState, useEffect } from "react";
 import { useAccount } from "wagmi";
@@ -12,6 +12,7 @@ import { DAO } from "./components/dao";
 import { CompoundDefi } from "./components/compounddefi";
 import { CompoundDAO } from "./components/compounddao";
 import { EtherBalance } from "./components/etherbalance";
+import { SocialScore } from "./components/socialscore";
 
 {
   /* <i class="fa-solid fa-magnifying-glass"></i> */
@@ -28,6 +29,7 @@ import {
   MediaQuery,
   Burger,
   useMantineTheme,
+  Tabs,
   TextInput,
   Group,
   Button,
@@ -40,6 +42,7 @@ import {
   Table,
   Image,
 } from "@mantine/core";
+import { SocialActivity } from "./components/socialactivity";
 
 
 
@@ -64,6 +67,8 @@ const Home = () => {
   const [compounddefi, setCompoundDefi] = useState([]);
   const [daos, setDaos] = useState([]);
   const [compounddao, setCompoundDao] = useState([]);
+  const [socialscore, setSocialScore] = useState([]);
+  const [walletage, setWalletAge] = useState([]);
 
   const [state, setState] = useState();
 
@@ -73,36 +78,40 @@ const Home = () => {
     setError(false);
 
     const getBalances = await fetch(`/api/balances?address=${address}`);
+    const _balances = await getBalances.json();
+    setBalances(_balances.data);
+
     const getHoldings = await fetch(`/api/holdings?address=${address}`);
+    const _holdings = await getHoldings.json();
+    setHoldings(_holdings.data);
+
     const getNftlist = await fetch(`/api/nftlist?address=${address}`);
     const getNftholdings = await fetch(`/api/nftholdings?address=${address}`);
     const getCompoundDefi = await fetch(`/defi/compound/${address}`);
     const getDaos = await fetch(`/daos/${address}`);
     const getCompoundDao = await fetch(`/dao/compound/${address}`);
+    const getSocialScore = await fetch(`/api/socialscore?address=${address}`);
+    const getWalletAge = await fetch(`/api/walletage?address=${address}`);
 
-    const _balances = await getBalances.json();
-    const _holdings = await getHoldings.json();
     const _nftlist = await getNftlist.json();
     const _nftholdings = await getNftholdings.json();
     const _compounddefi = await getCompoundDefi.json();
     const _daos = await getDaos.json();
     const _compounddao = await getCompoundDao.json();
+    const _socialscore = await getSocialScore.json();
+    const _walletage = await getWalletAge.json();
 
-    console.log(getHoldings)
-    console.log(_holdings)
-    console.log(_holdings.data)
-    console.log(holdings)
-    console.log(holdings.length > 0)
+    console.log('balances', _balances.data)
 
-    setBalances(_balances.data);
-    setHoldings(_holdings.data);
     setNftlist(_nftlist.data);
     setNftholdings(_nftholdings.data);
     setCompoundDefi(JSON.stringify(_compounddefi));
     setDaos(JSON.stringify(_daos));
     setCompoundDao(JSON.stringify(_compounddao));
+    setSocialScore(_socialscore.data);
+    setWalletAge(_walletage.data);
 
-    try{console.log(_daos)} catch(exeption){console.log(exeption)}
+    // try{console.log(_daos)} catch(exeption){console.log(exeption)}
 
     setState("fresh");
     // if(balances.length === 0) {setError(true)} else {setError(false)};
@@ -254,30 +263,38 @@ const Home = () => {
             </>
           )}
 
-          <Divider my='sm'/>
+          {/* <Divider my='sm'/> */}
           {/* New Card Boxes appearing */}
           {balances && balances.length > 0 && (
             <>
               {/* Ether Balances */}
               {/* <EtherBalance balances={balances}/> */}
+              <Tabs tabPadding='lg'>
+                <Tabs.Tab label="Social Activity" icon={<Image src="../assets/socialactivity.png" width={25} height={25}/>}>
+                  {/* Social Activity */}
+                  <SocialActivity socialscore={socialscore}/>
+                  {/* DAOs */}
+                  <DAO daos={daos} />
 
-              {/* Holdings Overview */}
-              <Holdings holdings={holdings}/>
-            
-              {/* DAOs */}
-              <DAO daos={daos}/>
+                  {/* Compound DAO */}
+                  <CompoundDAO compounddao={compounddao} />
+                </Tabs.Tab>
 
-              {/* Compund Defi*/}
-              <CompoundDefi compound={compounddefi}/>
+                <Tabs.Tab label="Borrowing & Lending" icon={<Exchange size={25}/>}>
+                  {/* Compund Defi*/}
+                  <CompoundDefi compound={compounddefi} />
+                </Tabs.Tab>
 
-              {/* Compound DAO */}
-              <CompoundDAO compounddao={compounddao} />
+                <Tabs.Tab label="Holdings & NFTs" icon={<Coin size={25}/>}>
+                  {/* Holdings Overview */}
+                  <Holdings holdings={holdings} />
+                  {/* DeBank NFT List */}
+                  <NFTList nftlist={nftlist} />
+                  {/* Etherscan NFT List */}
+                  <NftHoldings nftholdings={nftholdings} />
+                </Tabs.Tab>
 
-              {/* NFT List */}
-              <NFTList nftlist={nftlist}/>
-
-              <NftHoldings nftholdings={nftholdings}/>
-
+              </Tabs>
             </>
           )}
         </div>
