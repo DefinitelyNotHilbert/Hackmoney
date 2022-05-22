@@ -29,24 +29,35 @@ function getButton(_account){
     }
 }
 
-function onSearch(_addr){
-    // const [address, setAddress] = useState('');
-    /** need to excute parent's getContractData function */
-    // this.props.onSearchAddress(_addr);
-    // setAddress(_addr)
-}
+// function onSearch(_addr){
+//     // const [address, setAddress] = useState('');
+//     /** need to excute parent's getContractData function */
+//     // this.props.onSearchAddress(_addr);
+//     // setAddress(_addr)
+//     // getData(_addr)
+// }
 
 
-function onSearchKeyUp(e, _addr) {
-    if(e.key === 'Enter') {
-        onSearch(_addr)
-    }
-}
+// function onSearchKeyUp(e, _addr) {
+//     if(e.key === 'Enter') {
+//         onSearch(_addr)
+//     }
+// }
 
 
-export default function HeaderView() {
+const HeaderView = ({getData}) => {
     const { data: account } = useAccount()
     const [address, setAddress] = useState('');
+
+    const onSearch = (_addr) =>{
+        getData(_addr)
+    }
+
+    const onKeyUp = (e, _addr)=>{
+        if(e.key === 'Enter') {
+            onSearch(_addr)
+        }
+    }
 
   return (
 <div className="w-full">
@@ -66,7 +77,7 @@ export default function HeaderView() {
             <div className="pt-2 w-full flex justify-center">
                 <div className="w-full relative mx-auto text-gray-600">
                     <input className="border-2 border-gray-300 bg-white w-full h-8 px-5 pr-16 rounded-full text-sm focus:outline-none"
-                    type="search" name="search" placeholder="Search wallet address / ENS" onKeyUp={(e)=>onSearchKeyUp(e, address)}
+                    type="search" name="search" placeholder="Search wallet address / ENS" onKeyUp={(e)=>onKeyUp(e, address)}
                      onChange={(event) => setAddress(event.currentTarget.value)} />
                     <p>ss</p>
                     <button type="submit" className="absolute right-0 top-0 mt-2 mr-4" onClick={()=>{onSearch(address)}}>
@@ -95,7 +106,7 @@ export default function HeaderView() {
             <div className="pt-2 relative mx-auto text-gray-600 w-96">
                 <div className="w-full relative mx-auto text-gray-600">
                     <input className="border-2 border-gray-300 bg-white w-full h-8 px-5 pr-16 rounded-full text-sm focus:outline-none"
-                    type="search" name="search" placeholder="Search wallet address / ENS" onKeyUp={(e)=>onSearchKeyUp(e, address)}
+                    type="search" name="search" placeholder="Search wallet address / ENS" onKeyUp={(e)=>onKeyUp(e, address)}
                     onChange={(event) => setAddress(event.currentTarget.value)} />
                     
                     <button type="submit" className="absolute right-0 top-0 mt-2 mr-4" onClick={()=>{onSearch(address)}}>
@@ -117,3 +128,4 @@ export default function HeaderView() {
 
   );
 }
+export default  HeaderView;

@@ -114,16 +114,23 @@ const Home = () => {
     // if(networth != []) {setError('ok') };
 
   };
-  function onSearch(addr){
-    alert('parent:'+ addr)
+  // function onSearch(addr){
+  //   alert('parent:'+ addr)
+  // }
+
+  const getData = (addr) => {
+    console.log('parent:'+ addr)
+    setAddress(addr)
+    getContractData(addr)
   }
+
  
   // If account address exists over wagmi the search is performed automatically
   useEffect(()=> {if (account?.address) setAddress(account?.address) & getContractData(account?.address)}, [account?.address])
   return (
     <div className="w-full">
     {/** Header */}
-    <HeaderView  onSearchAddress={ (_addr)=>{ onSearch(_addr)}}></HeaderView>
+    <HeaderView  getData={getData}></HeaderView>
     <div className="container mx-auto">
       <ProfileView ></ProfileView>
       {/** summary */}
