@@ -4,6 +4,7 @@ import { Card, Image, Space, Text, Table } from '@mantine/core'
 export function NFTList(nftlist) {
     // try {
     const table = nftlist.nftlist
+    console.log(nftlist)
     const rows = table.map((nft) => (
         <tr key={nft.id}>
             <td>
