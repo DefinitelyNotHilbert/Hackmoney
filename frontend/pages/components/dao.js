@@ -36,8 +36,8 @@ export function DAO(daos) {
                     <h2>DAO Activity</h2>
                 </div>
                 <Space h="md" />
-                {/* <Text>{JSON.stringify(daos)}</Text> */}
-                {(daos)}
+                <Text>{JSON.stringify(daos)}</Text>
+                {/* {(daos)} */}
             </Card>
             <Space h="lg" />
         </>

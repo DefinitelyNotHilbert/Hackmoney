@@ -13,14 +13,7 @@ import {
 } from '@chakra-ui/react'
 export function SocialActivity(socialscore) {
 
-    // const rows = table.map((socialscore.socialscore) => (
-    //     <tr key={holding.id}>
-    //         <Td> <Image width={20} height={20} fit="containt" src={holding.logo_url} alt="Without placeholder" /> </Td>
-    //         <Td>{holding.id}</Td>
-    //         <Td>{holding.name}</Td>
-    //         <Td>{holding.usd_value}</Td>
-    //     </Tr>
-    // ));
+    console.log('socialscore', socialscore, socialscore.length)
 
     return (
         <>
@@ -34,38 +27,40 @@ export function SocialActivity(socialscore) {
                 </div>
                 <Space h="md" />
                 {/* <Text>{JSON.stringify(socialscore.socialscore)}</Text> */}
-                <TableContainer>
-                    <Table variant ='striped' colorScheme='gray' size='lg'>
-                        <Thead>
-                            <Tr>
-                                <Th>Criteria</Th>
-                                <Th>Score</Th>
-                            </Tr>
-                        </Thead>
-                        <Tbody>
-                            <Tr>
-                                <Td>Total Social Score</Td>
-                                <Td>{socialscore.socialscore.social_score}</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>Age</Td>
-                                <Td>{socialscore.socialscore.age_score}</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>DAO Voter</Td>
-                                <Td>{socialscore.socialscore.part_score}</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>Multi-Sig Signer</Td>
-                                <Td>{socialscore.socialscore.multisig_score}</Td>
-                            </Tr>
-                            <Tr>
-                                <Td>Public Goods Doner</Td>
-                                <Td>{socialscore.socialscore.pubgoods_score}</Td>
-                            </Tr>
-                        </Tbody>
-                    </Table>
-                </TableContainer>
+                {socialscore.length > 0 && (                    
+                    <TableContainer>
+                        <Table variant ='striped' colorScheme='gray' size='lg'>
+                            <Thead>
+                                <Tr>
+                                    <Th>Criteria</Th>
+                                    <Th>Score</Th>
+                                </Tr>
+                            </Thead>
+                            <Tbody>
+                                <Tr>
+                                    <Td>Total Social Score</Td>
+                                    <Td>{socialscore.socialscore.social_score}</Td>
+                                </Tr>
+                                <Tr>
+                                    <Td>Age</Td>
+                                    <Td>{socialscore.socialscore.age_score}</Td>
+                                </Tr>
+                                <Tr>
+                                    <Td>DAO Voter</Td>
+                                    <Td>{socialscore.socialscore.part_score}</Td>
+                                </Tr>
+                                <Tr>
+                                    <Td>Multi-Sig Signer</Td>
+                                    <Td>{socialscore.socialscore.multisig_score}</Td>
+                                </Tr>
+                                <Tr>
+                                    <Td>Public Goods Doner</Td>
+                                    <Td>{socialscore.socialscore.pubgoods_score}</Td>
+                                </Tr>
+                            </Tbody>
+                        </Table>
+                    </TableContainer>
+                )}
             </Card>
             <Space h="lg" />
         </>
