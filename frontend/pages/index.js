@@ -1,5 +1,5 @@
 // import styles from "../styles/CreatorSight.module.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Profile } from "./components/profile";
 import { Holdings } from "./components/holdings";
 import { Wallet } from "./components/wallet";
@@ -71,6 +71,11 @@ const Home = () => {
   const [nftholdings, setNftholdings] = useState([]);
 
   const [state, setState] = useState();
+
+
+  /**child component */
+  const refHolding = useRef({});
+
   
 
   // Fetches all information performed by a search
@@ -94,6 +99,7 @@ const Home = () => {
     const _nftlist = await getNftlist.json();
     const _nftholdings = await getNftholdings.json();
   
+    console.log('_holdings::', _holdings)
     // const _compounddefi = await getCompoundDefi.json();
     // const _daos = await getDaos.json();
     // const _compounddao = await getCompoundDao.json();
@@ -122,6 +128,8 @@ const Home = () => {
     console.log('parent:'+ addr)
     setAddress(addr)
     getContractData(addr)
+
+
   }
 
  
@@ -147,7 +155,10 @@ const Home = () => {
             <DefiActivityView />
           </div>
           <div className="w-full border border-gray-700 rounded-2xl pb-2">
-            <HoldingsView />
+          <button onClick={()=>{
+            refHolding.current.showAlert();
+          }}> 자식버튼</button>
+            <HoldingsView ref={refHolding} ds={nftholdings} />
             <NftsView />
             <NetWorthView />
           </div>

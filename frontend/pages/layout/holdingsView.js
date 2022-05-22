@@ -1,6 +1,19 @@
+import { loadComponents } from "next/dist/server/load-components";
+import React, { forwardRef, useImperativeHandle } from "react";
 
 
-export default function HoldingsView() {
+const HoldingsView = forwardRef((props, ref) => {
+// export default function HoldingsView(ds) {
+    // console.log('holding:::', ds.data)
+    useImperativeHandle(ref, () => ({
+        reload(_ds){
+            load(_ds)
+        }
+    }))
+    
+    const load = (_ds)=>{
+        console.log(_ds)
+    }
     return (
         <div className="">
             <div className="mt-3">
@@ -52,4 +65,6 @@ export default function HoldingsView() {
             </ul>
         </div>
     )
-  }
+  })
+
+export default HoldingsView;
