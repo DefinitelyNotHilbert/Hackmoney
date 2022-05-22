@@ -2,9 +2,9 @@
 
 ## About
 
-## Quickstart
+## Quickstart
 
-### Using Conda
+### Using Conda
 If you are using Conda (anaconda) you can create a virtual envirornment from the `env.yml` file. (this will take a while)
 ```bash
 conda env create -f env.yml
@@ -25,7 +25,7 @@ conda info --envs
 ### Without Conda
 
 
-### Running Backend
+### Running Backend
 Install uvicorn
 ```bash
 pip install uvicorn
@@ -41,7 +41,7 @@ uvicorn main:app
 Example address to query for Aave: 
 0xe37e48fac6868127B8d6424c2fF459ab68e5A4E1
 
-### Lending Activity
+### Lending Activity
 1. **Get Lending & Borrowing of address for Compound**
 [http://localhost:8000/defi/compound/0x2326D4fb2737666DDA96bd6314e3D4418246cFE8](http://localhost:8000/defi/compound/0x2326D4fb2737666DDA96bd6314e3D4418246cFE8)
 
@@ -67,6 +67,6 @@ using /dao/compound/<address> to obtain:
 
 
 
-## License
-
+## Licence 
+  
 ## Credits
