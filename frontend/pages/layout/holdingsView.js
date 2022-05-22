@@ -2,7 +2,7 @@ import { loadComponents } from "next/dist/server/load-components";
 import React, { forwardRef, useImperativeHandle } from "react";
 
 let items =[];
-let total_usd_value=[];
+let total_usd_value=0;
 
 const HoldingsView = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({
@@ -15,7 +15,7 @@ const HoldingsView = forwardRef((props, ref) => {
         total_usd_value = _ds.total_usd_value;
         const filted = _ds.data.chain_list.filter(function(x){return x.usd_value > 0});
          items = filted.map((i) => (
-                <tr className="bg-white">
+                <tr key={i.community_id} className="bg-white">
                     <td className="p-2 text-left">{i.community_id}</td>
                     <td className="p-2 text-left">
                         <div className="flex -space-x-2 overflow-hidden">
@@ -34,7 +34,12 @@ const HoldingsView = forwardRef((props, ref) => {
             <div className="mt-3">
                 <div className="w-full flex justify-between">
                 <h1 className="text-2xl m-3">Holdings </h1>
-                <h2 className="text-sm m-3">{total_usd_value} usd</h2>
+                <h2 className="text-sm m-3">
+                    {
+                        total_usd_value >0&&
+                            total_usd_value +'usd'
+                    }
+                </h2>
                 </div>
             </div>
             <table className="relative w-full ">

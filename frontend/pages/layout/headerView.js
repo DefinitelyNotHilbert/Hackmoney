@@ -29,28 +29,12 @@ function getButton(_account){
     }
 }
 
-// function onSearch(_addr){
-//     // const [address, setAddress] = useState('');
-//     /** need to excute parent's getContractData function */
-//     // this.props.onSearchAddress(_addr);
-//     // setAddress(_addr)
-//     // getData(_addr)
-// }
-
-
-// function onSearchKeyUp(e, _addr) {
-//     if(e.key === 'Enter') {
-//         onSearch(_addr)
-//     }
-// }
-
-
-const HeaderView = ({getData}) => {
+const HeaderView = ({getSearch}) => {
     const { data: account } = useAccount()
     const [address, setAddress] = useState('');
 
     const onSearch = (_addr) =>{
-        getData(_addr)
+        getSearch(_addr)
     }
 
     const onKeyUp = (e, _addr)=>{

@@ -75,6 +75,7 @@ const Home = () => {
 
   /**child component */
   const refHolding = useRef({});
+  const refNFTList = useRef({});
 
   
 
@@ -118,6 +119,7 @@ const Home = () => {
 
     /** child component relaod */
     refHolding.current.reload(_holdings);
+    refNFTList.current.reload(_nftlist)
 
     setState("fresh");
     // if(networth == []) {setError('error')};
@@ -128,12 +130,10 @@ const Home = () => {
   //   alert('parent:'+ addr)
   // }
 
-  const getData = (addr) => {
+  const getSearch = (addr) => {
     console.log('parent:'+ addr)
     setAddress(addr)
     getContractData(addr)
-
-
   }
 
  
@@ -142,7 +142,7 @@ const Home = () => {
   return (
     <div className="w-full">
     {/** Header */}
-    <HeaderView  getData={getData}></HeaderView>
+    <HeaderView  getSearch={getSearch}></HeaderView>
     <div className="container mx-auto">
       <ProfileView ></ProfileView>
       {/** summary */}
@@ -160,7 +160,7 @@ const Home = () => {
           </div>
           <div className="w-full border border-gray-700 rounded-2xl pb-2">
             <HoldingsView ref={refHolding} ds={nftholdings} />
-            <NftsView />
+            <NftsView ref={refNFTList} />
             <NetWorthView />
           </div>
         </div>
