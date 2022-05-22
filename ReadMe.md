@@ -1,6 +1,7 @@
 # Integrations
 
 ## Top
+
 | UI | Api Call | File Locations |
 | --- | --- | --- |
 | Following & Followers | none | none |
@@ -33,3 +34,8 @@
 | NFTs | /api/nftlist?={address} | see api & services folder in frontend |
 | NetWorth | /api/holdings?={address} | see api & services folder in frontend |
 
+
+| Command | Description |
+| --- | --- |
+| git status | List all new or modified files |
+| git diff | Show file differences that haven't been staged |
