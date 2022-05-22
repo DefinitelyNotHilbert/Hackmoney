@@ -7,7 +7,7 @@ import { AssetsSupplied } from "./components/assetssupplied";
 import { AssetsBorrowed } from "./components/assetsborrowed";
 import { NFTList } from "./components/nftlist";
 import { NftHoldings } from "./components/nftholdings";
-import  HeaderView  from "./layout/headerView_class"
+import  HeaderView  from "./layout/headerView"
 import ProfileView from "./layout/profileView"
 import SocialScoreView from "./layout/socialScoreView"
 import AssetsBorrowedView from "./layout/assetsBorrowedView";
@@ -82,9 +82,9 @@ const Home = () => {
     const getNftlist = await fetch(`/api/nftlist?address=${address}`);
     const getNftholdings = await fetch(`/api/nftholdings?address=${address}`);
 
-    const getDaos = await fetch(`/api/daos/${address}`);
-    const getCompoundDefi = await fetch(`/api/compound/${address}`);
-    const getCompoundDao = await fetch(`/api/dao/compound/${address}`);
+    // const getDaos = await fetch(`/api/daos/${address}`);
+    // const getCompoundDefi = await fetch(`/api/compound/${address}`);
+    // const getCompoundDao = await fetch(`/api/dao/compound/${address}`);
   
 
 
@@ -94,24 +94,24 @@ const Home = () => {
     const _nftlist = await getNftlist.json();
     const _nftholdings = await getNftholdings.json();
   
-    const _compounddefi = await getCompoundDefi.json();
-    const _daos = await getDaos.json();
-    const _compounddao = await getCompoundDao.json();
+    // const _compounddefi = await getCompoundDefi.json();
+    // const _daos = await getDaos.json();
+    // const _compounddao = await getCompoundDao.json();
 
     setBalances(_balances.data);
     setWalletAge(_walletage.data);
     setHoldings(_holdings.data);
     setNftlist(_nftlist.data);
     setNftholdings(_nftholdings.data);
-    setCompoundDefi(_compounddefi.data);
-    setDaos(_daos.data);
-    setCompoundDao(_compounddao.data);
+    // setCompoundDefi(_compounddefi.data);
+    // setDaos(_daos.data);
+    // setCompoundDao(_compounddao.data);
 
-    try{console.log(_daos)} catch(exeption){console.log(exeption)};
+    // try{console.log(_daos)} catch(exeption){console.log(exeption)};
 
     setState("fresh");
-    if(networth == []) {setError('error')};
-    if(networth != []) {setError('ok') };
+    // if(networth == []) {setError('error')};
+    // if(networth != []) {setError('ok') };
 
   };
   function onSearch(addr){

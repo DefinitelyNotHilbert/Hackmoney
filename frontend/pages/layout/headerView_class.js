@@ -96,7 +96,7 @@ import {
                 <div className="w-full relative mx-auto text-gray-600">
                     <input className="border-2 border-gray-300 bg-white w-full h-8 px-5 pr-16 rounded-full text-sm focus:outline-none"
                     type="search" name="search" placeholder="Search wallet address / ENS" onKeyUp={(e)=>this.onSearchKeyUp(e)}
-                    value={this.valueLink.value}  />
+                    defaultValue={this.valueLink.value}  />
                     
                     <button type="submit" className="absolute right-0 top-0 mt-2 mr-4" onClick={()=>{onSearch()}}>
                     <svg className="h-4 w-4 fill-gray-300 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
@@ -125,7 +125,7 @@ import {
                 <div className="w-full relative mx-auto text-gray-600">
                     {this.address}
                     <input  className="border-2 border-gray-300 bg-white w-full h-8 px-5 pr-16 rounded-full text-sm focus:outline-none"
-                    type="search" name="search" placeholder="Search wallet address / ENS" value={this.valueLink.value} onKeyUp={(e)=>this.onSearchKeyUp(e)}
+                    type="search" name="search" placeholder="Search wallet address / ENS" defaultValue={this.valueLink.value} onKeyUp={(e)=>this.onSearchKeyUp(e)}
                      />
                     
                     <button type="submit" className="absolute right-0 top-0 mt-2 mr-4" onClick={()=>{this.onSearch()}}>
