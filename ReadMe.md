@@ -5,10 +5,11 @@
 | UI | Api Call | File Locations |
 | --- | --- | --- |
 
-| UI | Description | File Locations |
+| UI | Api Call | File Locations |
 | --- | --- | --- |
-| git status | List all new or modified files | asdf | 
-| git diff | Show file differences that haven't been staged | asdf | 
+| Following & Followers | none | none |
+| Candid Score | none | none |
+| Wallet Age Score | none | none |
 
 | UI | Api Call | File Locations |
 | --- | --- | --- |
