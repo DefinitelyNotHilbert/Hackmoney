@@ -1,4 +1,4 @@
-import styles from "../styles/CreatorSight.module.css";
+// import styles from "../styles/CreatorSight.module.css";
 import React, { useState, useEffect } from "react";
 import { Profile } from "./components/profile";
 import { Holdings } from "./components/holdings";
@@ -68,6 +68,7 @@ const Home = () => {
 
 
   const [state, setState] = useState();
+  
 
   // Fetches all information performed by a search
   const getContractData = async () => {
@@ -77,7 +78,6 @@ const Home = () => {
     const getHoldings = await fetch(`/api/holdings?address=${address}`);
     const getNftlist = await fetch(`/api/nftlist?address=${address}`);
     const getNftholdings = await fetch(`/api/nftholdings?address=${address}`);
-
     const _balances = await getBalances.json();
     const _networth = await getNetworth.json();
     const _holdings = await getHoldings.json();

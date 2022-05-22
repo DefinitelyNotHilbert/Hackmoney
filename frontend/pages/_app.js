@@ -1,4 +1,5 @@
 import '../styles/globals.css';
+import '../styles/ScoreGauge.css';
 import { WagmiProvider } from 'wagmi';
 import { Wallet } from './components/wallet';
 

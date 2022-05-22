@@ -1,0 +1,36 @@
+.ScoreGauge-track{
+    fill: transparent;
+    stroke: #1f2755;
+    stroke-width: 20;
+  }
+  .ScoreGauge-indicator {
+    fill: transparent;
+    stroke: #7dbe55;
+    stroke-width: 26;
+    stroke-dasharray: 0 10000;
+    transition: stroke-dasharray .3s ease;
+  }
+  
+  .ScoreGauge {
+    margin: 0 auto;
+    border-radius: 50%;
+    display: block;
+  }
+  
+  
+  .ScoreGauge-text{
+    font-family: 'Roboto';
+    fill: #1f2755;
+  }
+  .ScoreGauge-text-val{
+    font-size:32px;
+    font-weight: 800;
+  }
+  .ScoreGauge-text-percent{
+    
+    font-size:14px;
+  }
+  .ScoreGauge-text-label{
+    font-size:9px;
+    
+  }

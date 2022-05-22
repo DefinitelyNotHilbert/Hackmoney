@@ -1,6 +1,8 @@
 
+import ScoreGauge from '../components/scoreGauge';
 
 export default function SocialScoreView() {
+    const score = 12.1;
     return (
         <div className="w-full">
             <div className="flex m-3">
@@ -8,16 +10,17 @@ export default function SocialScoreView() {
                     <h1 className="text-2xl">Social score</h1>
                     <p className="text-sm">Measures the integrity of the person with our open source social score for the blockchain.</p>
                     <div className="text-blue-400">
-                        <a href="#">Learn more here </a>
+                        <a href="#">Learn more here  &gt;</a>
                     </div>
                 </div>
                 <div className="w-full flex justify-center items-center">
-                    <div className="h-24 w-24 rounded-full border-4 border-gray-400 flex justify-center items-center">
+                    {/* <div className="h-24 w-24 rounded-full border-4 border-gray-400 flex justify-center items-center">
                         <div>
                             <div className="text-4xl text-center">9.7</div>
                             <div className="text-xs">CANDID Score</div>
                         </div>
-                    </div>
+                    </div> */}
+                    <ScoreGauge val={score} />
                 </div>
             </div>
             <table className="relative w-full ">
