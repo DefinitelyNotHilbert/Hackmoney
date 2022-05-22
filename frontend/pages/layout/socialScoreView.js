@@ -5,7 +5,6 @@ import ActivityFeedView from "../layout/activityFeedView";
 
 
 let SocialScore={}
-let totalScore=0;
 
 const SocialScoreView = forwardRef((props, ref) => {
 
@@ -14,28 +13,6 @@ const SocialScoreView = forwardRef((props, ref) => {
           SocialScore = _socialscore.data;
         //   console.log('_socialscore::', _socialscore)
         //   console.log('multisig_score::', SocialScore.multisig_score)
-
-        let idx=0;
-        let total=0;
-        if(SocialScore.age_score != null){
-            ++idx;
-            total= total + SocialScore.age_score;
-        }
-        if(SocialScore.multisig_score != null){
-            ++idx;
-            total= total + SocialScore.multisig_score;
-        }
-        if(SocialScore.part_score != null){
-            ++idx;
-            total= total + SocialScore.part_score;
-        }
-        if(SocialScore.pubgoods_score != null){
-            ++idx;
-            total= total + SocialScore.pubgoods_score;
-        }
-        
-        totalScore=(total/idx )*(idx*1.3)
-        console.log('totalScore' , totalScore)
       }
   }))
 
@@ -52,7 +29,7 @@ const SocialScoreView = forwardRef((props, ref) => {
                 </div>
                 <div className="w-full flex justify-center items-center">
                                         
-                    <ScoreGauge val={ totalScore.toFixed(1) } />
+                    <ScoreGauge val={ SocialScore.social_score } />
                 </div>
             </div>
             <table className="relative w-full ">
