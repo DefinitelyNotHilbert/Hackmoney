@@ -1,7 +1,35 @@
-import { Fragment } from 'react'
+import {
+    useAccount,
+    useConnect,
+    useDisconnect,
+    useEnsAvatar,
+    useEnsName,
+  } from 'wagmi';
 
+  import ConnectSelector from '../components/connectSelector';
+
+function getButton(_account){
+    const { disconnect } = useDisconnect()
+    if(_account ==undefined || _account == null){
+        return (
+           <ConnectSelector />
+        )
+        
+    }else{
+        return (
+            <button className="bg-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider  text-red-100 rounded-full hover:shadow-2xl hover:bg-red-600" 
+                onClick={disconnect} type="submit">
+                    Disconnect
+            </button>
+        )
+        
+    }
+}
 
 export default function HeaderView() {
+    const { data: account } = useAccount()
+    
+
   return (
 <div className="w-full">
     {/** mobile */}
@@ -13,11 +41,8 @@ export default function HeaderView() {
                         <img src="CANDID.svg" height={20} alt="" />
                     </a>
                </div>
-
                <div className="flex flex-col md:flex-row ">
-                <button className="bg-blue-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider  text-blue-100 rounded-full hover:shadow-2xl hover:bg-blue-600">
-                    connect wallet
-                </button>
+                {getButton(account)}
                </div>
             </div>
             <div className="pt-2 w-full flex justify-center">
@@ -57,9 +82,7 @@ export default function HeaderView() {
                 </button>
             </div>
             <div className="flex flex-col md:flex-row hidden md:block -mx-2">
-                <button className="bg-blue-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider  text-blue-100 rounded-full hover:shadow-2xl hover:bg-blue-600">
-                    connect wallet
-                </button>
+                {getButton(account)}
 
             </div>
         </div>

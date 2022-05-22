@@ -14,7 +14,7 @@ import { CompoundDAO } from "./components/compounddao";
 import { EtherBalance } from "./components/etherbalance";
 
 {
-  /* <i class="fa-solid fa-magnifying-glass"></i> */
+  /* <i className="fa-solid fa-magnifying-glass"></i> */
 }
 import {
   Alert,

@@ -1,24 +1,50 @@
+import {
+  useAccount,
+  useConnect,
+  useDisconnect,
+  useEnsAvatar,
+  useEnsName,
+} from 'wagmi';
 
 
 export default function ProfileView() {
+
+  const { data: account } = useAccount()
+  const { data: ensAvatar } = useEnsAvatar({ addressOrName: account?.address })
+  const { data: ensName } = useEnsName({ address: account?.address })
+  const { connect, connectors, error, isConnecting, pendingConnector } =
+      useConnect()
+  const { disconnect } = useDisconnect()
+
+  // console.log('#############',connectors)
   return (
 <div className="w-full mt-5">
    <div className="flex flex-col md:flex-row">
       <div className="flex justify-center m-5">
-        <img src="./assets/Oval.png" alt="profile image" />
+      {
+        ensAvatar === undefined
+        ?<div className='w-48 h-48 bg-gray-100 rounded-full flex justify-center items-center'>Empty ens Avatar</div>
+        :<img src={ensAvatar} alt="profile image" />
+      }
+        {/* <img src="./assets/Oval.png" alt="profile image" /> */}
       </div>
       <div className="flex flex-row justify-center m-5">
         <ul>
           <li>
             <div className="flex">
-              <div className="text-2xl"> Class.eth</div>
+              <div className="text-2xl">{ensName}</div>
               <div className="flex justify-center items-center mx-2">
-                <img src="./assets/ProfileChecked.svg" art="" />
+                {
+                  ensName === null?
+                  <span></span>
+                  :<img src="./assets/ProfileChecked.svg" art="" />
+                }
+                {/* <img src="./assets/ProfileChecked.svg" art="" /> */}
               </div>
             </div>
               </li>
           <li>
-            <div className="text-lg"> 0x83…c4</div>
+            <div className="text-lg"> {account?.address}</div>
           </li>
           <li className="flex">
               <div className="">

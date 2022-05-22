@@ -22,7 +22,7 @@ import ActivityFeedView from "./layout/activityFeedView";
 import ChooseLiquidityPoolView from "./layout/chooseLiquidityPoolView";
 
 {
-  /* <i class="fa-solid fa-magnifying-glass"></i> */
+  /* <i className="fa-solid fa-magnifying-glass"></i> */
 }
 import {
   Alert,
@@ -60,6 +60,7 @@ const Home = () => {
   // Wagmi account hook
   const { data: account } = useAccount()
 
+
   const [opened, setOpened] = useState(false);
   const [error, setError] = useState('');
   const [address, setAddress] = useState(null);
@@ -69,23 +70,31 @@ const Home = () => {
   const [nftlist, setNftlist] = useState([]);
   const [nftholdings, setNftholdings] = useState([]);
 
-
   const [state, setState] = useState();
   
 
   // Fetches all information performed by a search
-  const getContractData = async () => {
+  const getContractData = async (address) => {
     setState("loading");
+    
     const getBalances = await fetch(`/api/balances?address=${address}`);
     const getWalletAge = await fetch(`/api/walletage?address=${address}`);
     const getHoldings = await fetch(`/api/holdings?address=${address}`);
     const getNftlist = await fetch(`/api/nftlist?address=${address}`);
     const getNftholdings = await fetch(`/api/nftholdings?address=${address}`);
+
+    const getDaos = await fetch(`/api/daos/${address}`);
+    const getCompoundDefi = await fetch(`/api/compound/${address}`);
+    const getCompoundDao = await fetch(`/api/dao/compound/${address}`);
+  
+
+
     const _balances = await getBalances.json();
     const _walletage = await getWalletAge.json();
     const _holdings = await getHoldings.json();
     const _nftlist = await getNftlist.json();
     const _nftholdings = await getNftholdings.json();
+  
     const _compounddefi = await getCompoundDefi.json();
     const _daos = await getDaos.json();
     const _compounddao = await getCompoundDao.json();
@@ -95,9 +104,9 @@ const Home = () => {
     setHoldings(_holdings.data);
     setNftlist(_nftlist.data);
     setNftholdings(_nftholdings.data);
-    setCompoundDefi(JSON.stringify(_compounddefi));
-    setDaos(JSON.stringify(_daos));
-    setCompoundDao(JSON.stringify(_compounddao));
+    setCompoundDefi(_compounddefi.data);
+    setDaos(_daos.data);
+    setCompoundDao(_compounddao.data);
 
     try{console.log(_daos)} catch(exeption){console.log(exeption)};
 
@@ -108,29 +117,27 @@ const Home = () => {
   };
  
   // If account address exists over wagmi the search is performed automatically
-  useEffect(()=> {if (account?.address) setAddress(account?.address) & getContractData()}, [account?.address])
-
-
+  useEffect(()=> {if (account?.address) setAddress(account?.address) & getContractData(account?.address)}, [account?.address])
   return (
-    <div class="w-full">
+    <div className="w-full">
     {/** Header */}
     <HeaderView ></HeaderView>
-    <div class="container mx-auto">
+    <div className="container mx-auto">
       <ProfileView ></ProfileView>
       {/** summary */}
-      <div class="w-full mt-5">
+      <div className="w-full mt-5">
         <div>Profile Summary</div>
-        <hr class="border-2"></hr>
-        <div class="flex flex-nowrap flex-col md:flex-row md:space-x-5 space-y-10 md:space-y-0 p-3">
-          <div class="w-full border border-gray-700 rounded-2xl pb-2">
+        <hr className="border-2"></hr>
+        <div className="flex flex-nowrap flex-col md:flex-row md:space-x-5 space-y-10 md:space-y-0 p-3">
+          <div className="w-full border border-gray-700 rounded-2xl pb-2">
             <SocialScoreView />
           </div>
-          <div class="w-full border border-gray-700 rounded-2xl pb-2">
+          <div className="w-full border border-gray-700 rounded-2xl pb-2">
             <AssetsBorrowedView />
             <AssetsSuppliedView />
             <DefiActivityView />
           </div>
-          <div class="w-full border border-gray-700 rounded-2xl pb-2">
+          <div className="w-full border border-gray-700 rounded-2xl pb-2">
             <HoldingsView />
             <NftsView />
             <NetWorthView />
@@ -140,8 +147,8 @@ const Home = () => {
     </div>
     <FooterView />
     {/** */}
-    <ActivityFeedView />
-    <ChooseLiquidityPoolView />
+    {/* <ActivityFeedView /> */}
+    {/* <ChooseLiquidityPoolView /> */}
     </div>
 
   );
