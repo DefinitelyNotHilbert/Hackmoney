@@ -1,5 +1,7 @@
 
 import ScoreGauge from '../components/scoreGauge';
+import ActivityFeedView from "../layout/activityFeedView";
+
 
 export default function SocialScoreView() {
     const score = 12.1;
@@ -52,6 +54,7 @@ export default function SocialScoreView() {
             <div className="mt-3">
                 <h1 className="text-2xl m-3">Latest Activity </h1>
             </div>
+            {/* <ActivityFeedView /> */}
             <div className="w-full h-44 flex justify-center items-center bg-gray-50">
                 <span className="text-gray-300 ">Activity area</span>
             </div>

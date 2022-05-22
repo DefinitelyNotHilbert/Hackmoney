@@ -7,7 +7,7 @@ import { AssetsSupplied } from "./components/assetssupplied";
 import { AssetsBorrowed } from "./components/assetsborrowed";
 import { NFTList } from "./components/nftlist";
 import { NftHoldings } from "./components/nftholdings";
-import  HeaderView  from "./layout/headerView"
+import  HeaderView  from "./layout/headerView_class"
 import ProfileView from "./layout/profileView"
 import SocialScoreView from "./layout/socialScoreView"
 import AssetsBorrowedView from "./layout/assetsBorrowedView";
@@ -116,7 +116,7 @@ const Home = () => {
 
   };
   function onSearch(addr){
-    alert(addr)
+    alert('parent:'+ addr)
   }
  
   // If account address exists over wagmi the search is performed automatically
@@ -124,7 +124,7 @@ const Home = () => {
   return (
     <div className="w-full">
     {/** Header */}
-    <HeaderView  onSearchAddress={ ()=>onSearch}></HeaderView>
+    <HeaderView  onSearchAddress={ (_addr)=>{ onSearch(_addr)}}></HeaderView>
     <div className="container mx-auto">
       <ProfileView ></ProfileView>
       {/** summary */}

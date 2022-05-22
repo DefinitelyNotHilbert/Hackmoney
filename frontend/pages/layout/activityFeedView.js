@@ -1,5 +1,4 @@
 
-
 export default function ActivityFeedView({val}) {
 
     const feeds=[]
