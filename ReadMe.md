@@ -5,6 +5,10 @@
 | UI | Api Call | File Locations |
 | --- | --- | --- |
 
+| UI | Description | File Locations |
+| --- | --- | --- |
+| git status | List all new or modified files | asdf | 
+| git diff | Show file differences that haven't been staged | asdf | 
 
 | UI | Api Call | File Locations |
 | --- | --- | --- |
@@ -41,7 +45,3 @@
 | NetWorth | /api/holdings?={address} | see api & services folder in frontend |
 
 
-| Command | Description |
-| --- | --- |
-| git status | List all new or modified files |
-| git diff | Show file differences that haven't been staged |
