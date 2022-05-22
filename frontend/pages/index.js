@@ -100,6 +100,7 @@ const Home = () => {
     const _nftholdings = await getNftholdings.json();
   
     console.log('_holdings::', _holdings)
+    
     // const _compounddefi = await getCompoundDefi.json();
     // const _daos = await getDaos.json();
     // const _compounddao = await getCompoundDao.json();
@@ -114,6 +115,9 @@ const Home = () => {
     // setCompoundDao(_compounddao.data);
 
     // try{console.log(_daos)} catch(exeption){console.log(exeption)};
+
+    /** child component relaod */
+    refHolding.current.reload(_nftholdings.data);
 
     setState("fresh");
     // if(networth == []) {setError('error')};
@@ -155,9 +159,6 @@ const Home = () => {
             <DefiActivityView />
           </div>
           <div className="w-full border border-gray-700 rounded-2xl pb-2">
-          <button onClick={()=>{
-            refHolding.current.showAlert();
-          }}> 자식버튼</button>
             <HoldingsView ref={refHolding} ds={nftholdings} />
             <NftsView />
             <NetWorthView />
