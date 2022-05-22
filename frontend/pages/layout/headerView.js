@@ -2,16 +2,18 @@ import React, { useState, useEffect } from "react";
 import { AlertTriangle } from "tabler-icons-react";
 import {
     useAccount,
-    // useConnect,
+    useConnect,
     useDisconnect,
-    // useEnsAvatar,
-    // useEnsName,
+    useEnsAvatar,
+    useEnsName,
   } from 'wagmi';
 
   import ConnectSelector from '../components/connectSelector';
 
 function getButton(_account){
     const { disconnect } = useDisconnect()
+    console.log('_account::::::', _account)
+    alert(_account)
     if(_account ==undefined || _account == null){
         return (
            <ConnectSelector />
@@ -31,7 +33,7 @@ function getButton(_account){
 function onSearch(_addr){
     // const [address, setAddress] = useState('');
     /** need to excute parent's getContractData function */
-    // this.props.onSearchAddress(_addr); 
+    // this.props.onSearchAddress(_addr);
     // setAddress(_addr)
 }
 
@@ -66,7 +68,7 @@ export default function HeaderView() {
                 <div className="w-full relative mx-auto text-gray-600">
                     <input className="border-2 border-gray-300 bg-white w-full h-8 px-5 pr-16 rounded-full text-sm focus:outline-none"
                     type="search" name="search" placeholder="Search wallet address / ENS" onKeyUp={(e)=>onSearchKeyUp(e, address)}
-                    value={address} onChange={(event) => setAddress(event.currentTarget.value)} />
+                    defaultValue={address} onChange={(event) => setAddress(event.currentTarget.value)} />
                     
                     <button type="submit" className="absolute right-0 top-0 mt-2 mr-4" onClick={()=>{onSearch(address)}}>
                     <svg className="h-4 w-4 fill-gray-300 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
@@ -95,7 +97,7 @@ export default function HeaderView() {
                 <div className="w-full relative mx-auto text-gray-600">
                     <input className="border-2 border-gray-300 bg-white w-full h-8 px-5 pr-16 rounded-full text-sm focus:outline-none"
                     type="search" name="search" placeholder="Search wallet address / ENS" onKeyUp={(e)=>onSearchKeyUp(e, address)}
-                    value={address} onChange={(event) => setAddress(event.currentTarget.value)} />
+                    defaultValue={address} onChange={(event) => setAddress(event.currentTarget.value)} />
                     
                     <button type="submit" className="absolute right-0 top-0 mt-2 mr-4" onClick={()=>{onSearch(address)}}>
                     <svg className="h-4 w-4 fill-gray-300 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">

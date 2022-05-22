@@ -76,7 +76,6 @@ const Home = () => {
   // Fetches all information performed by a search
   const getContractData = async (address) => {
     setState("loading");
-    
     const getBalances = await fetch(`/api/balances?address=${address}`);
     const getWalletAge = await fetch(`/api/walletage?address=${address}`);
     const getHoldings = await fetch(`/api/holdings?address=${address}`);
