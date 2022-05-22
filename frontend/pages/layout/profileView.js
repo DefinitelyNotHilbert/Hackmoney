@@ -1,3 +1,4 @@
+import React, { forwardRef, useImperativeHandle } from "react";
 import {
   useAccount,
   useConnect,
@@ -6,14 +7,27 @@ import {
   useEnsName,
 } from 'wagmi';
 
+const ProfileView = forwardRef((props, ref) => {
 
-export default function ProfileView() {
+  let age='';
+  // let SocialScore={}
+  useImperativeHandle(ref, () => ({
+    reload(_age){
+        age=_age.data;
+        // SocialScore = _socialscore.data;
+        console.log('_age::', _age)
+        
+    }
+}))
+  const load = (_ds)=>{
+      
+  }
 
   const { data: account } = useAccount()
   const { data: ensAvatar } = useEnsAvatar({ addressOrName: account?.address })
   const { data: ensName } = useEnsName({ address: account?.address })
-  
 
+  
   // console.log('#############',connectors)
   return (
 <div className="w-full mt-5">
@@ -65,7 +79,7 @@ export default function ProfileView() {
           </li>
           <li>
             <div className="text-xl">
-              Wallet Age
+              Wallet Age {age}
             </div>
           </li>
         </ul>
@@ -75,4 +89,5 @@ export default function ProfileView() {
 </div>
 
   );
-}
+})
+export default ProfileView;

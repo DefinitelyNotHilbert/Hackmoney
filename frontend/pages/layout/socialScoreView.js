@@ -1,10 +1,45 @@
-
+import React, { forwardRef, useImperativeHandle } from "react";
 import ScoreGauge from '../components/scoreGauge';
 import ActivityFeedView from "../layout/activityFeedView";
 
 
-export default function SocialScoreView() {
-    const score = 12.1;
+
+let SocialScore={}
+let totalScore=0;
+
+const SocialScoreView = forwardRef((props, ref) => {
+
+    useImperativeHandle(ref, () => ({
+      reload(_socialscore){
+          SocialScore = _socialscore.data;
+          console.log('_socialscore::', _socialscore)
+          console.log('multisig_score::', SocialScore.multisig_score)
+
+          let idx=0;
+        let total=0;
+        if(SocialScore.age_score != null){
+            ++idx;
+            total= total + SocialScore.age_score;
+        }
+        if(SocialScore.multisig_score != null){
+            ++idx;
+            total= total + SocialScore.multisig_score;
+        }
+        if(SocialScore.part_score != null){
+            ++idx;
+            total= total + SocialScore.part_score;
+        }
+        if(SocialScore.pubgoods_score != null){
+            ++idx;
+            total= total + SocialScore.pubgoods_score;
+        }
+        
+        totalScore=(total/idx )*10
+        console.log('totalScore' , totalScore)
+      }
+  }))
+
+  
     return (
         <div className="w-full">
             <div className="flex m-3">
@@ -16,13 +51,8 @@ export default function SocialScoreView() {
                     </div>
                 </div>
                 <div className="w-full flex justify-center items-center">
-                    {/* <div className="h-24 w-24 rounded-full border-4 border-gray-400 flex justify-center items-center">
-                        <div>
-                            <div className="text-4xl text-center">9.7</div>
-                            <div className="text-xs">CANDID Score</div>
-                        </div>
-                    </div> */}
-                    <ScoreGauge val={score} />
+                                        
+                    <ScoreGauge val={ Math.floor(totalScore,2) } />
                 </div>
             </div>
             <table className="relative w-full ">
@@ -35,19 +65,19 @@ export default function SocialScoreView() {
                 <tbody className="divide-y text-sm">
                 <tr className="bg-white">
                     <td className="p-2 text-left">DAO Voter</td>
-                    <td className="p-2 text-right">8.9</td>
+                    <td className="p-2 text-right">{Math.floor(SocialScore.part_score,2)}</td>
                 </tr>
                 <tr className="bg-gray-100">
                     <td className="p-2 text-left">Multi-sig signer</td>
-                    <td className="p-2 text-right">6.8</td>
+                    <td className="p-2 text-right">{Math.floor(SocialScore.multisig_score,2)}</td>
                 </tr>
                 <tr className="bg-white">
                     <td className="p-2 text-left">Public good doner</td>
-                    <td className="p-2 text-right">10</td>
+                    <td className="p-2 text-right">{Math.floor(SocialScore.pubgoods_score,2)}</td>
                 </tr>
                 <tr className="bg-gray-100">
                     <td className="p-2 text-left">Age</td>
-                    <td className="p-2 text-right">10</td>
+                    <td className="p-2 text-right">{Math.floor(SocialScore.age_score,2)}</td>
                 </tr>
                 </tbody>
             </table>
@@ -61,4 +91,5 @@ export default function SocialScoreView() {
 
         </div>
     )
-}
+})
+export default  SocialScoreView;

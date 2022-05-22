@@ -2,7 +2,6 @@ import React, { forwardRef, useImperativeHandle } from "react";
 
 let items =[];
 let totalSize =0;
-// export default function NftsView() {
 const NftsView = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({
         reload(_ds){
