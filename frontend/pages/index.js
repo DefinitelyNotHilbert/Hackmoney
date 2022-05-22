@@ -109,7 +109,7 @@ const Home = () => {
     setWalletAge(_walletage.data);
     setHoldings(_holdings.data);
     setNftlist(_nftlist.data);
-    setNftholdings(_nftholdings.data);
+    setNftholdings('data:',_nftholdings.data);
     // setCompoundDefi(_compounddefi.data);
     // setDaos(_daos.data);
     // setCompoundDao(_compounddao.data);
@@ -117,7 +117,7 @@ const Home = () => {
     // try{console.log(_daos)} catch(exeption){console.log(exeption)};
 
     /** child component relaod */
-    refHolding.current.reload(_nftholdings.data);
+    refHolding.current.reload(_holdings);
 
     setState("fresh");
     // if(networth == []) {setError('error')};

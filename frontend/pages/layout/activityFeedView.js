@@ -4,7 +4,7 @@ export default function ActivityFeedView({val}) {
     const feeds=[]
     const rows = feeds.map((nft) => (
         
-        <li className="p-2 flex justify-between items-center">
+        <li key={nft} className="p-2 flex justify-between items-center">
             <div className="flex items-center">
             <img className="w-8 h-8" src="./assets/DAI.png" alt="ETH" />
                 <span className="ml-2">21'002 DAI</span>
